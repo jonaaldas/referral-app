@@ -1,0 +1,352 @@
+[
+  {
+    "referralType": "recieved",
+    "clientsName": "Beatrice Hemerijk",
+    "typeOfTransaction": "Buyer",
+    "clientsPhoneNumber": "(555) 399-9839",
+    "clientsEmail": "kmackegg3n@hugedomains.com",
+    "closed": false,
+    "referredDate": "Oct 27, 2022",
+    "realtorsName": "Talya Foale",
+    "realtorsEmail": "amatissoffg@epa.gov",
+    "realtorsPhone": "(555) 340-7170",
+    "id": "1",
+    "ClientDetails": {
+      "PropertyType": "Town House",
+      "BedsandBaths": "1 Bed, 2 Baths"
+    },
+    "FinancingDetails": {
+      "Financing": "Needs a lender",
+      "LendersPhoneNumber": "(555) 123 1235",
+      "LendersEmail": "123@gmail.com",
+      "LendersName": "Mark Thomson"
+    },
+    "notes": [
+      {
+        "id": 1,
+        "note": "Hello",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      },
+      {
+        "id": 2,
+        "note": "Hello I am a note",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      }
+    ]
+  },
+  {
+    "referralType": "sent",
+    "clientsName": "Diannne Cassell",
+    "typeOfTransaction": "Sellerr",
+    "clientsPhoneNumber": "(555) 989-6402",
+    "clientsEmail": "chattersley48@about.com",
+    "closed": false,
+    "referredDate": "May 2, 2023",
+    "realtorsName": "Marinna Kentwell",
+    "realtorsEmail": "ssiddons10@sfgate.com",
+    "realtorsPhone": "(555) 615-1042",
+    "id": "2",
+    "ClientDetails": {
+      "PropertyType": "Town House",
+      "BedsandBaths": "1 Bed, 2 Baths"
+    },
+    "FinancingDetails": {
+      "Financing": "Needs a lender",
+      "LendersPhoneNumber": "(555) 123 1235",
+      "LendersEmail": "123@gmail.com",
+      "LendersName": "Mark Thomson"
+    },
+    "notes": [
+      {
+        "id": 1,
+        "note": "Hello",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      },
+      {
+        "id": 2,
+        "note": "Hello I am a note",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      }
+    ]
+  },
+  {
+    "referralType": "recieved",
+    "clientsName": "Richardo Eccleston",
+    "typeOfTransaction": "Buyer",
+    "clientsPhoneNumber": "(555) 955-5544",
+    "clientsEmail": "jspellissy3l@taobao.com",
+    "closed": false,
+    "referredDate": "Nov 27, 2022",
+    "realtorsName": "Cammie Veare",
+    "realtorsEmail": "bhollyland3e@prnewswire.com",
+    "realtorsPhone": "(555) 598-7188",
+    "id": "3",
+    "ClientDetails": {
+      "PropertyType": "Town House",
+      "BedsandBaths": "1 Bed, 2 Baths"
+    },
+    "FinancingDetails": {
+      "Financing": "Needs a lender",
+      "LendersPhoneNumber": "(555) 123 1235",
+      "LendersEmail": "123@gmail.com",
+      "LendersName": "Mark Thomson"
+    },
+    "notes": [
+      {
+        "id": 1,
+        "note": "Hello",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      },
+      {
+        "id": 2,
+        "note": "Hello I am a note",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      }
+    ]
+  },
+  {
+    "referralType": "sent",
+    "clientsName": "Smith McCardle",
+    "typeOfTransaction": "Seller",
+    "clientsPhoneNumber": "(555) 523-2333",
+    "clientsEmail": "ghalward4@nsw.gov.au",
+    "closed": false,
+    "referredDate": "Nov 20, 2022",
+    "realtorsName": "Fey Pordal",
+    "realtorsEmail": "cbartel59@illinois.edu",
+    "realtorsPhone": "(555) 395-3828",
+    "id": "4",
+    "ClientDetails": {
+      "PropertyType": "Town House",
+      "BedsandBaths": "1 Bed, 2 Baths"
+    },
+    "FinancingDetails": {
+      "Financing": "Needs a lender",
+      "LendersPhoneNumber": "(555) 123 1235",
+      "LendersEmail": "123@gmail.com",
+      "LendersName": "Mark Thomson"
+    },
+    "notes": [
+      {
+        "id": 1,
+        "note": "Hello",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      },
+      {
+        "id": 2,
+        "note": "Hello I am a note",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      }
+    ]
+  },
+  {
+    "referralType": "sent",
+    "clientsName": "Blythe Quemby",
+    "typeOfTransaction": "Buyer",
+    "clientsPhoneNumber": "(555) 334-5575",
+    "clientsEmail": "greasce39@people.com.cn",
+    "closed": false,
+    "referredDate": "Jun 3, 2023",
+    "realtorsName": "Carola Raffels",
+    "realtorsEmail": "radamik2b@hubpages.com",
+    "realtorsPhone": "(555) 635-2640",
+    "id": "5",
+    "ClientDetails": {
+      "PropertyType": "Town House",
+      "BedsandBaths": "1 Bed, 2 Baths"
+    },
+    "FinancingDetails": {
+      "Financing": "Needs a lender",
+      "LendersPhoneNumber": "(555) 123 1235",
+      "LendersEmail": "123@gmail.com",
+      "LendersName": "Mark Thomson"
+    },
+    "notes": [
+      {
+        "id": 1,
+        "note": "Hello",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      },
+      {
+        "id": 2,
+        "note": "Hello I am a note",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      }
+    ]
+  },
+  {
+    "referralType": "recieved",
+    "clientsName": "Arlana Haddow",
+    "typeOfTransaction": "Seller",
+    "clientsPhoneNumber": "(555) 858-3420",
+    "clientsEmail": "bgalle2x@cbc.ca",
+    "closed": false,
+    "referredDate": "Jan 11, 2023",
+    "realtorsName": "Ricki Duquesnay",
+    "realtorsEmail": "iwathall41@reverbnation.com",
+    "realtorsPhone": "(555) 713-1652",
+    "id": "6",
+    "ClientDetails": {
+      "PropertyType": "Town House",
+      "BedsandBaths": "1 Bed, 2 Baths"
+    },
+    "FinancingDetails": {
+      "Financing": "Needs a lender",
+      "LendersPhoneNumber": "(555) 123 1235",
+      "LendersEmail": "123@gmail.com",
+      "LendersName": "Mark Thomson"
+    },
+    "notes": [
+      {
+        "id": 1,
+        "note": "Hello",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      },
+      {
+        "id": 2,
+        "note": "Hello I am a note",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      }
+    ]
+  },
+  {
+    "referralType": "recieved",
+    "clientsName": "Ardeen Littrell",
+    "typeOfTransaction": "Seller",
+    "clientsPhoneNumber": "(555) 252-9291",
+    "clientsEmail": "ckiddey64@mtv.com",
+    "closed": true,
+    "referredDate": "Nov 17, 2022",
+    "realtorsName": "Bailie Reasce",
+    "realtorsEmail": "jspellissy3l@taobao.com",
+    "realtorsPhone": "(555) 114-1153",
+    "id": "7",
+    "ClientDetails": {
+      "PropertyType": "Town House",
+      "BedsandBaths": "1 Bed, 2 Baths"
+    },
+    "FinancingDetails": {
+      "Financing": "Needs a lender",
+      "LendersPhoneNumber": "(555) 123 1235",
+      "LendersEmail": "123@gmail.com",
+      "LendersName": "Mark Thomson"
+    },
+    "notes": [
+      {
+        "id": 1,
+        "note": "Hello",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      },
+      {
+        "id": 2,
+        "note": "Hello I am a note",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      }
+    ]
+  },
+  {
+    "referralType": "recieved",
+    "clientsName": "Tory Spellissy",
+    "typeOfTransaction": "Seller",
+    "clientsPhoneNumber": "(555) 327-8382",
+    "clientsEmail": "bkersey66@scientificamerican.com",
+    "closed": true,
+    "referredDate": "Sep 2, 2022",
+    "realtorsName": "Lazare Kellough",
+    "realtorsEmail": "lzannolli1m@hostgator.com",
+    "realtorsPhone": "(555) 369-4702",
+    "id": "8",
+    "ClientDetails": {
+      "PropertyType": "Town House",
+      "BedsandBaths": "1 Bed, 2 Baths"
+    },
+    "FinancingDetails": {
+      "Financing": "Needs a lender",
+      "LendersPhoneNumber": "(555) 123 1235",
+      "LendersEmail": "123@gmail.com",
+      "LendersName": "Mark Thomson"
+    },
+    "notes": [
+      {
+        "id": 1,
+        "note": "Hello",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      },
+      {
+        "id": 2,
+        "note": "Hello I am a note",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      }
+    ]
+  },
+  {
+    "referralType": "sent",
+    "clientsName": "Elvera Macquire",
+    "typeOfTransaction": "Buyer",
+    "clientsPhoneNumber": "(555) 317-8541",
+    "clientsEmail": "nolfert4o@pbs.org",
+    "closed": true,
+    "referredDate": "Jul 9, 2023",
+    "realtorsName": "Tom Sleite",
+    "realtorsEmail": "rpordals@usatoday.com",
+    "realtorsPhone": "(555) 137-5845",
+    "id": "9",
+    "ClientDetails": {
+      "PropertyType": "Town House",
+      "BedsandBaths": "1 Bed, 2 Baths"
+    },
+    "FinancingDetails": {
+      "Financing": "Needs a lender",
+      "LendersPhoneNumber": "(555) 123 1235",
+      "LendersEmail": "123@gmail.com",
+      "LendersName": "Mark Thomson"
+    },
+    "notes": [
+      {
+        "id": 1,
+        "note": "Hello",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      },
+      {
+        "id": 2,
+        "note": "Hello I am a note",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      }
+    ]
+  },
+  {
+    "referralType": "sent",
+    "clientsName": "Andre Roebottom",
+    "typeOfTransaction": "Seller",
+    "clientsPhoneNumber": "(555) 113-5911",
+    "clientsEmail": "lsorey1t@webeden.co.uk",
+    "closed": false,
+    "referredDate": "May 1, 2023",
+    "realtorsName": "Claretta Carnoghan",
+    "realtorsEmail": "hhammerson3g@imageshack.us",
+    "realtorsPhone": "(555) 452-2108",
+    "id": "10",
+    "ClientDetails": {
+      "PropertyType": "Town House",
+      "BedsandBaths": "1 Bed, 2 Baths"
+    },
+    "FinancingDetails": {
+      "Financing": "Needs a lender",
+      "LendersPhoneNumber": "(555) 123 1235",
+      "LendersEmail": "123@gmail.com",
+      "LendersName": "Mark Thomson"
+    },
+    "notes": [
+      {
+        "id": 1,
+        "note": "Hello",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      },
+      {
+        "id": 2,
+        "note": "Hello I am a note",
+        "dateAdded": "Aug-24-2022 14:56PM"
+      }
+    ]
+  }
+]
