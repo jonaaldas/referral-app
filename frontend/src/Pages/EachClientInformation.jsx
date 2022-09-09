@@ -1,10 +1,12 @@
 import EachClientDashboard from "../components/EachClientDashboard";
+import Nav from "../components/Nav";
 function ClientInformation() {
-  return (
-    <>
-      <EachClientDashboard />
-    </>
-  );
+	return (
+		<>
+			<Nav />
+			<EachClientDashboard />
+		</>
+	);
 }
 
 export default ClientInformation;

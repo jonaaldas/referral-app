@@ -1,7 +1,13 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 import data from "../referals.json";
 import { v4 as uuidv4 } from "uuid";
-
+import {
+	getUserRequest,
+	userLogInRuequest,
+	logOutUser,
+	userRegisterRequest,
+} from "../api/userApi";
+import { useNavigate } from "react-router-dom";
 export const ReferralContext = createContext();
 
 export function useReferralContext() {
@@ -10,12 +16,21 @@ export function useReferralContext() {
 }
 
 function ReferalProvider({ children }) {
+	const navigate = useNavigate();
 	// initial state for referrals
 	const [referrals, setReferrals] = useState(data);
 	// filtered referrals (seller and buyers)
 	const [filteredReferrals, setFilteredReferrals] = useState([]);
 	// flag to compare buttons
 	const [activeButtons, setActiveButtons] = useState("");
+	// boolean flaag to check if a user is loggedIN
+	const [isSignUp, setIsSingedUp] = useState(false);
+	// useEfect to see if we have a user logged in
+	useEffect(() => {
+		(async () => {
+			getUser(setIsSingedUp);
+		})();
+	}, []);
 
 	// add a note to referral profile
 	const addNote = (note, params) => {
@@ -63,9 +78,30 @@ function ReferalProvider({ children }) {
 		let referralClient = referrals.filter((x) => {
 			return x.id !== id;
 		});
-		setReferrals(referralClient);
 	};
 	// ============== Referral manipulation Crud END =================
+
+	// ================= auth Begins =================
+	const getUser = async (setIsSingedUp) => {
+		const res = await getUserRequest(setIsSingedUp);
+	};
+
+	const userLogIn = async (email, password) => {
+		const res = await userLogInRuequest(email, password);
+	};
+
+	const userRegister = async (name, email, password) => {
+		const res = await userRegisterRequest(name, email, password);
+	};
+
+	const logOut = async () => {
+		const res = await logOutUser();
+		if (res.status === 200) {
+			setIsSingedUp((prevBoolean) => !prevBoolean);
+		}
+		navigate("/");
+	};
+	// ================= auth Ends =================
 
 	return (
 		<ReferralContext.Provider
@@ -73,6 +109,8 @@ function ReferalProvider({ children }) {
 				referrals,
 				filteredReferrals,
 				activeButtons,
+				isSignUp,
+				setIsSingedUp,
 				setFilteredReferrals,
 				setActiveButtons,
 				addNote,
@@ -81,6 +119,10 @@ function ReferalProvider({ children }) {
 				editReferralInformation,
 				getSingleReferralToEdit,
 				deleteReferralClient,
+				getUser,
+				userLogIn,
+				logOut,
+				userRegister,
 			}}
 		>
 			{children}

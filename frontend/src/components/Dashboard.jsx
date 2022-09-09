@@ -20,7 +20,7 @@ function Dashboard() {
 					<p>Date Referred: {data.referredDate}</p>
 				</div>
 				<button
-					onClick={() => navigate(`client-information/${data.id}`)}
+					onClick={() => navigate(`dashboard/client-information/${data.id}`)}
 					className="inline-block px-3 text-sm font-medium text-black  hover:bg-green-600 hover:text-white active:bg-green-500 focus:outline-none focus:ring"
 				>
 					More

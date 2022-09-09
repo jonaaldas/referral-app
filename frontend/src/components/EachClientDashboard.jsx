@@ -83,7 +83,7 @@ function ClientDashboard() {
 			);
 		});
 	// send
-	return <section>{eachClient}</section>;
+	return <section> {eachClient}</section>;
 }
 
 export default ClientDashboard;

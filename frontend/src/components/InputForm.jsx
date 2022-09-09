@@ -61,7 +61,16 @@ function InputForm() {
 			}
 		})();
 	}, [params.id, getSingleReferralToEdit]);
-	console.log(inputValues);
+
+	const Schema = Yup.object({
+		clientsName: Yup.string().required("Please add First Name"),
+		typeOfTransaction: Yup.string()
+			.required("Please Specify the type of transaction")
+			.oneOf(["seller", "buyer", "Seller", "Buyer"]),
+		clientsPhoneNumber: Yup.string().required("Phone number is required"),
+		clientsEmail: Yup.string().email().required("Email is Requierd"),
+	});
+
 	return (
 		<>
 			<Link to="/">
@@ -77,19 +86,10 @@ function InputForm() {
 						} else {
 							sendRefferal(values);
 						}
-						navigate("/");
+						navigate("/dashboard");
 					}}
 					enableReinitialize
-					validationSchema={Yup.object({
-						clientsName: Yup.string().required("Please add First Name"),
-						typeOfTransaction: Yup.string()
-							.required("Please Specify the type of transaction")
-							.oneOf(["seller", "buyer", "Seller", "Buyer"]),
-						clientsPhoneNumber: Yup.string().required(
-							"Phone number is required"
-						),
-						clientsEmail: Yup.string().email().required("Email is Requierd"),
-					})}
+					validationSchema={Schema}
 				>
 					{({ values, handleChange, handleSubmit }) => (
 						<form
@@ -185,13 +185,13 @@ function InputForm() {
 								</div>
 							</div>
 							{clientDetailsBoolean === true ||
-							(params.id && values.ClientDetails.PropertyType !== "") ||
-							values.ClientDetails.BedsandBaths !== "" ? (
-								<ClientDetailsQuestions
-									value={{ values }}
-									handleChange={{ handleChange }}
-								/>
-							) : null}
+								(params.id && values.ClientDetails.PropertyType !== "") ||
+								(values.ClientDetails.BedsandBaths !== "" && (
+									<ClientDetailsQuestions
+										value={{ values }}
+										handleChange={{ handleChange }}
+									/>
+								))}
 							<textarea
 								className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
 								cols="30"

@@ -1,9 +1,12 @@
 import NotesButton from "../components/NotesButton";
-
+import Nav from "../components/Nav";
 function NotesButtonPage() {
-  return (  
-    <NotesButton/>
-  );
+	return (
+		<>
+			<Nav />
+			<NotesButton />
+		</>
+	);
 }
 
 export default NotesButtonPage;
