@@ -47,7 +47,6 @@ function Auth() {
 				} else {
 					userRegister(name, email, password);
 				}
-				navigate("/");
 			}}
 		>
 			{({ handleSubmit, handleChange }) => (

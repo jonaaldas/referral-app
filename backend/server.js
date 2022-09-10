@@ -39,6 +39,8 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // passport code starts
+
+
 passport.use(new LocalStrategy((username, password,done) => {
   UserModal.findOne({ username }, (err, user) => {
     if (err) throw err;
@@ -59,6 +61,7 @@ passport.serializeUser((user, cb) => {
   cb(null, user._id);
 });
 
+// retreive user from session
 passport.deserializeUser((id, cb) => {
   UserModal.findOne({ _id: id }, (err, user) => {
     const userInformation = {

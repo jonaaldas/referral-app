@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 export const getUserRequest = async (setIsSingedUp) => {
   return await axios.get("auth/user", {
     withCredentials: true,
@@ -20,6 +19,10 @@ export const userLogInRuequest = async (email, password) => {
   )
   .then((res) => {
     console.log(res.data);
+    window.location.href = "/"
+  }, () => {
+    console.log('user doesnt exist')
+    window.location.href = "/auth"
   })
 }
 

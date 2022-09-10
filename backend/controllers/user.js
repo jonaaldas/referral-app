@@ -41,3 +41,10 @@ export const logOut = async(req, res, next) => {
     res.send('You have been logged out')
   });
 }
+
+export const getAllUsers = async(req, res) => {
+  await UserModal.find({}, (err, data) => {
+    if(err) {throw err}
+    res.send(data)
+  }).clone()
+}

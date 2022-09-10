@@ -87,7 +87,7 @@ function ReferalProvider({ children }) {
 	};
 
 	const userLogIn = async (email, password) => {
-		const res = await userLogInRuequest(email, password);
+		return await userLogInRuequest(email, password);
 	};
 
 	const userRegister = async (name, email, password) => {
