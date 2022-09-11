@@ -1,11 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import {
-  mongodb
-} from './routes/db.js';
+import { mongodb } from './routes/db.js';
 import dotenv from 'dotenv';
-import router from './routes/user.js'
+import userRouter from './routes/user.js'
+import referralRouter from './routes/referralRoutes.js'
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import passportLocal from "passport-local"
@@ -39,7 +38,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // passport code starts
-
 
 passport.use(new LocalStrategy((username, password,done) => {
   UserModal.findOne({ username }, (err, user) => {
@@ -75,7 +73,8 @@ passport.deserializeUser((id, cb) => {
 // passport code ends
 
 // user routers
-app.use('/auth',router);
+app.use('/auth', userRouter);
+app.use('/user', referralRouter)
 
 
 const port = process.env.PORT || 6002;

@@ -1,8 +1,6 @@
 import bcrypt from "bcryptjs";
 import UserModal from "../models/user.js";
 
-const secret = 'test';
-
 export const signin = async (req, res) => {
   res.send('Successfully Authenticated')
 };
