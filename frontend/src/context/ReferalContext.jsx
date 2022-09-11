@@ -16,6 +16,8 @@ function ReferalProvider({ children }) {
 	const [filteredReferrals, setFilteredReferrals] = useState([]);
 	// flag to compare buttons
 	const [activeButtons, setActiveButtons] = useState("");
+	// flag for signed up
+	const [isSignUp, setIsSingedUp] = useState(false);
 
 	// add a note to referral profile
 	const addNote = (note, params) => {
@@ -73,6 +75,7 @@ function ReferalProvider({ children }) {
 				referrals,
 				filteredReferrals,
 				activeButtons,
+				isSignUp,
 				setFilteredReferrals,
 				setActiveButtons,
 				addNote,

@@ -1,0 +1,30 @@
+{
+  "name": "referrals.io",
+  "version": "1.0.0",
+  "description": "Referral system for realtors",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonaaldas/referral-app.git"
+  },
+  "author": "Jonathan Aldas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonaaldas/referral-app/issues"
+  },
+  "homepage": "https://github.com/jonaaldas/referral-app#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
