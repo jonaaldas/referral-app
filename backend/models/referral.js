@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
 
 const referralMongoose = mongoose.Schema({
-  // user: {
-	// 	type: mongoose.Schema.Types.ObjectId,
-	// 	required: true,
-	// 	ref: 'User',
-	// },
+  user: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true,
+		ref: 'userShema',
+	},
 	referralType: {type: String, required: true},
 	clientsName: {type: String, required: true},
 	typeOfTransaction: {type: String, required: true},

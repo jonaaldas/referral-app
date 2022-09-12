@@ -1,9 +1,10 @@
 import referralsSchema from '../models/referral.js'
+import userShcema from '../models/user.js'
 // @desc Get Goals
 // @route Get/api/getreferrals
 // @access Private
 export const getReferrals =  async (req, res) =>{
-  const referrals = await referralsSchema.find()
+  const referrals = await referralsSchema.find({user: req.user.id})
   res.status(200).json(referrals)
 }
 
@@ -34,6 +35,7 @@ try {
     referredDate
   } = req.body
   const referral =  new referralsSchema({
+    user: req.user.id,
       referralType,
       clientsName,
       typeOfTransaction,
@@ -65,11 +67,6 @@ try {
   res.status(200).json(referral)
 } catch (error) {
   console.log(error)
-    if(!req.body.text){
-      // user error
-      res.status(400)
-      throw new Error('Please add a body')
-    }
   }
 }
 
@@ -83,6 +80,19 @@ export const updateReferral = async(req, res) =>{
     if(!refferalToUpdate){
       res.status(400)
       throw new Error("refferal Note found")
+    }
+
+    const user = await userShcema.findById(req.user.id)
+    // check for user
+    if(!user){
+       res.data(401)
+       throw new Error('User not Found')
+    }
+
+    // make sure the log in user mathces the goal user
+    if(refferalToUpdate.user.toString() !== req.user.id){
+      res.status(401)
+      throw new Error('User not found')
     }
 
     const updatedReferral = await referralsSchema.findByIdAndUpdate(req.params.id, req.body, {
@@ -105,6 +115,19 @@ export const deleteReferral = async(req, res) =>{
     res.status(400)
     throw new Error("refferalfound")
   }
+
+  const user = await userShcema.findById(req.user.id)
+    // check for user
+    if(!user){
+       res.data(401)
+       throw new Error('User not Found')
+    }
+
+    // make sure the log in user mathces the goal user
+    if(refferalToDelete.user.toString() !== req.user.id){
+      res.status(401)
+      throw new Error('User not found')
+    }
 
   const refferralToBeDelted = await referralsSchema.findByIdAndDelete(req.params.id)
 
