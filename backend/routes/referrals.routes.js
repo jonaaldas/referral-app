@@ -14,9 +14,9 @@ router.delete("/deletereferral/:id",protect, deleteReferral)
 // NOTE CRUD 
 router.post("/createnote/:id",protect, createNote)
 
-router.put("/updatenote/:note_id",protect, updateNote)
+router.put("/updatenote/:referral_id/note/:note_id",protect, updateNote)
 
-router.delete("/deletenote/:referral_id/note/:note_id", deleteNote)
+router.delete("/deletenote/:referral_id/note/:note_id",protect, deleteNote)
 
 
 export default router

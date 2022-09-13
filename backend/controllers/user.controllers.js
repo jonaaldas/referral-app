@@ -51,7 +51,8 @@ export const registerUser = async (req, res) => {
 // @route Post/api/user/login
 // @access Public
 export const logInUser = async (req, res) => {
-  const {email, password} = req.body
+  try {
+    const {email, password} = req.body
   const user = await userSchema.findOne({email})
   if(user && (bcrypt.compare(password, user.password))){
     res.json({
@@ -62,6 +63,9 @@ export const logInUser = async (req, res) => {
     })
   } else {
     throw new Error('invalid user credentials')
+  }
+  } catch (error) {
+    console.log(error);
   }
 }
 // generte jwt
