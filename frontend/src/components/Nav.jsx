@@ -1,4 +1,6 @@
+import { useReferralContext } from "../context/ReferalContext";
 function StandardNavMenu() {
+	const { logOut, isSingUp, user } = useReferralContext();
 	return (
 		<header className="bg-gray-900">
 			<div className="flex items-center h-16 max-w-screen-xl gap-8 px-4 mx-auto sm:px-6 lg:px-8">
@@ -7,16 +9,18 @@ function StandardNavMenu() {
 					<h1>REFERAL.IO</h1>
 				</a>
 
-				<div className="flex items-center justify-end flex-1 md:justify-between">
-					<nav className="hidden md:block" aria-labelledby="header-navigation">
-						<h2 className="sr-only" id="header-navigation">
-							Header navigation
-						</h2>
-					</nav>
-
+				<div className="flex items-center justify-end flex-1 ">
 					<h3 className=" text-teal-300 flex items-center gap-4">
-						Hi, Jonathan
+						{user ? `Hi, ${JSON.parse(user).name}` : null}
 					</h3>
+					{user ? (
+						<button
+							className="inline-flex items-center justify-center px-4 py-2 bg-teal-600 border border-transparent rounded-md font-semibold capitalize text-white hover:bg-teal-700 active:bg-teal-700 focus:outline-none focus:border-teal-700 focus:ring focus:ring-teal-200 disabled:opacity-25 transition"
+							onClick={logOut}
+						>
+							Log Out
+						</button>
+					) : null}
 				</div>
 			</div>
 		</header>

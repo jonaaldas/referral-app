@@ -4,22 +4,25 @@ import userSchema from '../models/user.js'
 
 
 // @desc Create User
-// @route Post/api/user
+// @route Post/api/user/register
 // @access Public
 export const registerUser = async (req, res) => {
+ try {
   const {name, email, password} = req.body 
 
   if(!name || !email || !password) {
   res.status(400) 
-  throw new Error('Please add new user')
+  .json({ message: 'Please add new user'});
+  return;
   }
 
   const userExist = await userSchema.findOne({email})
-
   if(userExist){
     res.status(400)
-    throw new Error('User already exist')
+    .json({ message: 'User Already Exists'});
+      return;
   }
+  
 
   // hashPassword
   const salt = await bcrypt.genSalt(10)
@@ -41,10 +44,10 @@ export const registerUser = async (req, res) => {
       email: user.email,
       token: generateToken(user._id)
     })
-  } else {
-    throw new Error('invalid user data')
   }
-
+ } catch (error) {
+  console.log(error)
+ }
 }
 
 // @desc Authenticate a user
@@ -53,17 +56,18 @@ export const registerUser = async (req, res) => {
 export const logInUser = async (req, res) => {
   try {
     const {email, password} = req.body
-  const user = await userSchema.findOne({email})
-  if(user && (bcrypt.compare(password, user.password))){
-    res.json({
-      _id: user.id,
-      name: user.name,
-      email: user.email,
-      token: generateToken(user._id)
-    })
-  } else {
-    throw new Error('invalid user credentials')
-  }
+    const user = await userSchema.findOne({email})
+    if(user && (bcrypt.compare(password, user.password))){
+      res.json({
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+        token: generateToken(user._id)
+      })
+    } else {
+      res.status(401).json({ message: 'Invalid User Credentials'});
+      return;
+    }
   } catch (error) {
     console.log(error);
   }
@@ -84,4 +88,5 @@ export const getUserData = async (req, res) => {
     name,
     email
   })
-  }
+}
+

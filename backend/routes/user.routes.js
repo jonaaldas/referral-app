@@ -4,7 +4,7 @@ import {protect} from '../middleware/authMiddleweat.js'
 const router = express.Router()
 
 
-router.post('/', registerUser)
+router.post('/register', registerUser)
 router.post('/login', logInUser)
 router.get('/me',protect, getUserData)
 

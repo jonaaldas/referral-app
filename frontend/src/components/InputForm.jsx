@@ -61,7 +61,6 @@ function InputForm() {
 			}
 		})();
 	}, [params.id, getSingleReferralToEdit]);
-	console.log(inputValues);
 	return (
 		<>
 			<Link to="/">

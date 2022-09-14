@@ -4,13 +4,23 @@ import referralRouter from './routes/referrals.routes.js'
 import userlRouter from './routes/user.routes.js'
 import {errorHandler} from './middleware/errorMiddlewear.js'
 import {mongodb} from './config/db.js'
-const port = process.env.PORT || 5007
+
+import cors from 'cors'
+const port = process.env.PORT || 5012
 
 
 const app = express()
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
+
+app.use(
+  cors({
+    origin: '*',
+    credentials: true
+  })
+);
+
 // database
 mongodb()
 // routes
