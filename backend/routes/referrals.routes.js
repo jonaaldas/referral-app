@@ -1,5 +1,5 @@
 import express from 'express'
-import { getReferrals, createReferrals,updateReferral, deleteReferral, updateNote, createNote, deleteNote } from "../controllers/referrals.controllers.js"
+import { getReferrals, createReferrals,updateReferral, deleteReferral, updateNote, createNote, deleteNote, getSingleReferral } from "../controllers/referrals.controllers.js"
 import {protect} from '../middleware/authMiddleweat.js'
 const router = express.Router()
 
@@ -10,6 +10,8 @@ router.post("/createreferral",protect, createReferrals)
 router.put("/updatereferral/:id",protect, updateReferral)
 
 router.delete("/deletereferral/:id",protect, deleteReferral)
+
+router.get("/getsinglereferral/:id", protect, getSingleReferral)
 
 // NOTE CRUD 
 router.post("/createnote/:id",protect, createNote)

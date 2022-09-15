@@ -25,13 +25,13 @@ try {
     realtorsName,
     realtorsEmail,
     realtorsPhone,
-    propertyType,
-    bedsandBaths,
-    notes,
-    financing,
-    lendersName,
-    lendersPhoneNumber,
-    lendersEmail,
+    PropertyType,
+    BedsandBaths,
+    note,
+    Financing,
+    LendersName,
+    LendersPhoneNumber,
+    LendersEmail,
     referredDate
   } = req.body
   const referral =  new referralsSchema({
@@ -49,17 +49,17 @@ try {
   })
   referral.referredDate = timeAndDate
   referral.ClientDetails = {
-    PropertyType: propertyType ? propertyType : '',
-    BedsandBaths: bedsandBaths ? bedsandBaths : ''
+    PropertyType: PropertyType  ? PropertyType : '',
+    BedsandBaths: BedsandBaths ? BedsandBaths : ''
   }
   referral.FinancingDetails = {
-    Financing: financing ? financing : '',
-    LendersName: lendersName ? lendersName : '',
-    LendersPhoneNumber: lendersPhoneNumber ? lendersPhoneNumber : '',
-    LendersEmail: lendersEmail ? lendersEmail : ''
+    Financing: Financing ? Financing : '',
+    LendersName: LendersName ? LendersName : '',
+    LendersPhoneNumber: LendersPhoneNumber ? LendersPhoneNumber : '',
+    LendersEmail: LendersEmail ? LendersEmail : ''
   }
   referral.agentNotes.push({
-    note: notes,
+    note: note,
     dateAdded: timeAndDate
   })
   await referral.save()
@@ -101,6 +101,29 @@ export const updateReferral = async(req, res) =>{
   } catch (error) {
     console.log(error)
   }
+}
+
+// @desc Get Single Referral
+// @route GET/api/getsinglereferral/:id
+// @access Private
+export const getSingleReferral = async (req, res) => {
+  try {
+    // check for user
+    if(!req.user){
+      res.data(401)
+      throw new Error('User not Found')
+   }
+
+    const singleReferral = await referralsSchema.findById(req.params.id)
+    if(singleReferral===null ){
+      res.status(400).json("refferal Note found")
+    } else {
+      res.status(200).json(singleReferral)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+  
 }
 
 // @desc Delete Referral

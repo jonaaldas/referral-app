@@ -20,13 +20,13 @@ function Dashboard() {
 					<p>Date Referred: {data.referredDate}</p>
 				</div>
 				<button
-					onClick={() => navigate(`client-information/${data.id}`)}
+					onClick={() => navigate(`client-information/${data._id}`)}
 					className="inline-block px-3 text-sm font-medium text-black  hover:bg-green-600 hover:text-white active:bg-green-500 focus:outline-none focus:ring"
 				>
 					More
 				</button>
 				<button
-					onClick={() => deleteReferralClient(data.id)}
+					onClick={() => deleteReferralClient(data._id)}
 					className="inline-block px-3 text-sm font-medium text-black  hover:bg-green-600 hover:text-white active:bg-green-500 focus:outline-none focus:ring"
 				>
 					Delete

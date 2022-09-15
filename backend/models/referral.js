@@ -15,7 +15,7 @@ const referralMongoose = mongoose.Schema({
 	referredDate: { type: Date},
 	realtorsName: {type: String, required: true},
 	realtorsEmail: {type: String, required: true},
-	realtorsPhone: {type: Number, required: true},
+	realtorsPhone: {type: String, required: true},
 	ClientDetails: {
 		PropertyType: {type: String},
 		BedsandBaths: {type: String},

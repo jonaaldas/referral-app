@@ -20,20 +20,20 @@ function NotesButton() {
 	};
 
 	const eachClientsNotes = referrals
-		.filter((foo) => foo.id === params.id)
+		.filter((foo) => foo._id === params.id)
 		.map((data) => {
 			return (
-				<div key={data.id}>
-					{data.notes.map((notes) => {
+				<div key={data._id}>
+					{data.agentNotes.map((notes) => {
 						return (
-							<div key={notes.id} className="border flex justify-between">
+							<div key={notes._id} className="border flex justify-between">
 								<div className="ml-2">
 									<p className="text-xs">{notes.dateAdded}</p>
 									<p>{notes.note}</p>
 								</div>
 								<div>
 									<button
-										onClick={() => deleteNote(notes.id, params)}
+										onClick={() => deleteNote(notes._id, params)}
 										className="inline-block border border-black-600 hover:bg-green-600 hover:text-white active:bg-green-500 focus:outline-none focus:ring className='inline-block mr-2 px-2 py-1 text-xs font-medium text-white bg-blue-500 rounded-lg"
 									>
 										Delete Note

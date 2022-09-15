@@ -7,6 +7,13 @@ import {
 	registerUserRequest,
 	getUserRequest,
 } from "../api/userApi";
+import {
+	getAllReferralsRequest,
+	createReferralsRequest,
+	deleteReferralRequest,
+	getOneReferralToEditRequest,
+	editReferralRequest,
+} from "../api/referralsApi";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,7 +27,7 @@ export function useReferralContext() {
 function ReferalProvider({ children }) {
 	const navigate = useNavigate();
 	// initial state for referrals
-	const [referrals, setReferrals] = useState(data);
+	const [referrals, setReferrals] = useState([]);
 	// filtered referrals (seller and buyers)
 	const [filteredReferrals, setFilteredReferrals] = useState([]);
 	// flag to compare buttons
@@ -30,6 +37,7 @@ function ReferalProvider({ children }) {
 	// user from backedn
 	const [user, setUser] = useState("");
 
+	// ==============Note manipulation Crud =================
 	// add a note to referral profile
 	const addNote = (note, params) => {
 		let referralClient = referrals.filter((x) => {
@@ -50,33 +58,55 @@ function ReferalProvider({ children }) {
 		console.log(referralClient);
 		setReferrals((prevNotes) => [...prevNotes, referralClient]);
 	};
+	// ============== Note manipulation Crud END =================
 
 	// ==============Referral manipulation Crud =================
-	// send a reffral
-	const sendRefferal = (client) => {
-		setReferrals((prevReferrals) => [...prevReferrals, client]);
+	// get all referrals
+	const getAllReferralls = async (token) => {
+		const res = await getAllReferralsRequest(token);
+		setReferrals((prevReferrals) => [...prevReferrals, ...res.data]);
+	};
+
+	// send/add a new a reffral
+	const sendRefferal = async (client) => {
+		let userToken = JSON.parse(user);
+		const res = await createReferralsRequest(userToken.token, client);
+		console.log(res);
+		setReferrals((prevReferrals) => [...prevReferrals, res.data]);
 	};
 
 	// edit Referral
-	const editReferralInformation = (client, id) => {
+	const editReferralInformation = async (client, id) => {
+		let userToken = JSON.parse(user);
+		const res = await editReferralRequest(userToken.token, client, id);
+		console.log(res);
 		setReferrals(
 			referrals.map((clientReferral) =>
-				clientReferral.id === id ? client : clientReferral
+				clientReferral._id === id ? res.data : clientReferral
 			)
 		);
 	};
 
 	// get Single Referral to edit information
-	const getSingleReferralToEdit = (id) => {
-		return referrals.filter((referral) => referral.id === id)[0];
+	const getSingleReferralToEdit = async (id) => {
+		let userToken = JSON.parse(user);
+		const res = await getOneReferralToEditRequest(userToken.token, id);
+		console.log(res);
+		return res;
+		// referrals.filter((referral) => referral.id === id)[0];
 	};
 
 	// delete referral Client
-	const deleteReferralClient = (id) => {
-		let referralClient = referrals.filter((x) => {
-			return x.id !== id;
-		});
-		setReferrals(referralClient);
+	const deleteReferralClient = async (id) => {
+		let userToken = JSON.parse(user);
+		const res = await deleteReferralRequest(userToken.token, id);
+		if (res.status === 200) {
+			toast("Referral Deleted");
+			let referralClient = referrals.filter((x) => {
+				return x._id !== id;
+			});
+			setReferrals(referralClient);
+		}
 	};
 	// ============== Referral manipulation Crud END =================
 
@@ -89,7 +119,7 @@ function ReferalProvider({ children }) {
 			toast("User already Exists");
 			navigate("/auth");
 		} else if (res?.status === 201) {
-			sessionStorage.setItem("user", JSON.stringify(res.data));
+			localStorage.setItem("user", JSON.stringify(res.data));
 			navigate("/");
 			setIsSingedUp((prevSignUp) => !prevSignUp);
 			window.location.reload(false);
@@ -97,7 +127,7 @@ function ReferalProvider({ children }) {
 	};
 
 	const logOut = () => {
-		sessionStorage.removeItem("user");
+		localStorage.removeItem("user");
 		navigate("/auth");
 		window.location.reload(false);
 	};
@@ -107,7 +137,7 @@ function ReferalProvider({ children }) {
 		if (res?.response?.status === 401) {
 			toast("Email or Passowrd are incorrect");
 		} else if (res.status === 200) {
-			sessionStorage.setItem("user", JSON.stringify(res.data));
+			localStorage.setItem("user", JSON.stringify(res.data));
 			navigate("/");
 			setIsSingedUp((prevSignUp) => !prevSignUp);
 			window.location.reload(false);
@@ -116,14 +146,21 @@ function ReferalProvider({ children }) {
 
 	const getUser = async (token) => {
 		const res = await getUserRequest(token);
-		console.log(res);
+		// console.log(res);
 	};
 	useEffect(() => {
-		if (!sessionStorage.getItem("user")) {
-			navigate("/auth");
-		} else {
-			setUser(sessionStorage.getItem("user"));
-		}
+		(async () => {
+			if (!localStorage.getItem("user")) {
+				navigate("/auth");
+			} else {
+				setUser(localStorage.getItem("user"));
+				console.log("i am running");
+				if (user && user !== "" && user !== undefined) {
+					await getAllReferralls(JSON.parse(user).token);
+					// console.log(JSON.parse(user).token);
+				}
+			}
+		})();
 	}, [user]);
 
 	return (

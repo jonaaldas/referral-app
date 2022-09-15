@@ -32,32 +32,22 @@ function InputForm() {
 		referredDate: timeAndDate,
 		realtorsName: "Talya Foale",
 		realtorsEmail: "amatissoffg@epa.gov",
-		realtorsPhone: "(555) 340-7170",
-		id: uuidv4(),
-		ClientDetails: {
-			PropertyType: "",
-			BedsandBaths: "",
-		},
-		FinancingDetails: {
-			Financing: "",
-			LendersName: "",
-			LendersPhoneNumber: "",
-			LendersEmail: "",
-		},
-		notes: [
-			{
-				id: uuidv4(),
-				note: "",
-				dateAdded: timeAndDate,
-			},
-		],
+		realtorsPhone: "123123123",
+		PropertyType: "",
+		BedsandBaths: "",
+		Financing: "",
+		LendersName: "",
+		LendersPhoneNumber: "",
+		LendersEmail: "",
+		note: "",
 	});
 
 	useEffect(() => {
 		(async () => {
 			if (params.id) {
 				let values = await getSingleReferralToEdit(params.id);
-				setInputValues(values);
+				console.log(values.data);
+				setInputValues(values.data);
 			}
 		})();
 	}, [params.id, getSingleReferralToEdit]);
@@ -152,10 +142,10 @@ function InputForm() {
 							</div>
 							{lenderQuestionBoolean === true ||
 							(params.id &&
-								values.FinancingDetails.LendersName !== "" &&
-								values.FinancingDetails.LendersEmail !== "" &&
-								values.FinancingDetails.LendersPhoneNumber !== "" &&
-								values.FinancingDetails.Financing !== "") ? (
+								values.LendersName !== "" &&
+								values.LendersEmail !== "" &&
+								values.LendersPhoneNumber !== "" &&
+								values.Financing !== "") ? (
 								<FinancingQuestions
 									value={{ values }}
 									handleChange={{ handleChange }}
@@ -184,8 +174,8 @@ function InputForm() {
 								</div>
 							</div>
 							{clientDetailsBoolean === true ||
-							(params.id && values.ClientDetails.PropertyType !== "") ||
-							values.ClientDetails.BedsandBaths !== "" ? (
+							(params.id && values.PropertyType !== "") ||
+							values.BedsandBaths !== "" ? (
 								<ClientDetailsQuestions
 									value={{ values }}
 									handleChange={{ handleChange }}
@@ -195,8 +185,10 @@ function InputForm() {
 								className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
 								cols="30"
 								rows="10 "
-								value={values.notes[0].note}
-								name="notes[0].note"
+								value={
+									values?.agentNotes ? values.agentNotes[0].note : values.note
+								}
+								name="note"
 								onChange={handleChange}
 								placeholder="Enter any aditional notes"
 							></textarea>
