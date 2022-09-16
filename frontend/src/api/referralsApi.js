@@ -47,3 +47,23 @@ export const deleteReferralRequest = async (token, referralId) => {
     return error
   }
 }
+
+// CRUD Actions for Notes
+export const addANoteRequest = async (token, note, referralId) => {
+  try {
+  return await axios.post(`http://localhost:5012/api/createnote/${referralId}`, note, { headers: {"Authorization" : `Bearer ${token}`}}
+  )
+  } catch (error) {
+    return error
+  }
+}
+
+// delete note 
+
+export const  deleteNoteRequest = async (token, notesId, referralId) =>{
+  try {
+    return await axios.delete(`http://localhost:5012/api/deletenote/${referralId}/note/${notesId}`, { headers: {"Authorization" : `Bearer ${token}`}})
+  } catch (error) {
+    return error
+  }
+}

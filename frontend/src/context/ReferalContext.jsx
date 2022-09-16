@@ -13,6 +13,8 @@ import {
 	deleteReferralRequest,
 	getOneReferralToEditRequest,
 	editReferralRequest,
+	addANoteRequest,
+	deleteNoteRequest,
 } from "../api/referralsApi";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -39,24 +41,29 @@ function ReferalProvider({ children }) {
 
 	// ==============Note manipulation Crud =================
 	// add a note to referral profile
-	const addNote = (note, params) => {
+	const addNote = async (note, params) => {
+		let userToken = JSON.parse(user);
+		const res = await addANoteRequest(userToken.token, note, params.id);
+		console.log(res.data);
 		let referralClient = referrals.filter((x) => {
-			return x.id === params.id;
+			return x._id === params.id;
 		});
-		note.id = uuidv4();
-		referralClient[0].notes.push(note);
+		referralClient[0].agentNotes.push(note);
 		setReferrals((prevNotes) => [...prevNotes, referralClient]);
 	};
 
 	// delete Note
-	const deleteNote = (id, params) => {
-		let referralClient = referrals.filter((x) => {
-			return x.id === params.id;
-		});
-		let x = referralClient[0].notes.filter((x) => x.id !== id);
-		referralClient[0].notes = x;
-		console.log(referralClient);
-		setReferrals((prevNotes) => [...prevNotes, referralClient]);
+	const deleteNote = async (notesId, params) => {
+		let userToken = JSON.parse(user);
+		const res = await deleteNoteRequest(userToken.token, notesId, params.id);
+		if (res.status === 200) {
+			let referralClient = referrals.filter((x) => {
+				return x._id === params.id;
+			});
+			let x = referralClient[0].agentNotes.filter((x) => x._id !== notesId);
+			referralClient[0].agentNotes = x;
+			setReferrals((prevNotes) => [...prevNotes, referralClient]);
+		}
 	};
 	// ============== Note manipulation Crud END =================
 

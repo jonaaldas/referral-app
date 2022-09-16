@@ -188,7 +188,7 @@ function InputForm() {
 								value={
 									values?.agentNotes ? values.agentNotes[0].note : values.note
 								}
-								name="note"
+								name={values?.agentNotes ? "agentNotes[0].note" : "note"}
 								onChange={handleChange}
 								placeholder="Enter any aditional notes"
 							></textarea>

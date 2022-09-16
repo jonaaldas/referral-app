@@ -26,7 +26,7 @@ function NotesButton() {
 				<div key={data._id}>
 					{data.agentNotes.map((notes) => {
 						return (
-							<div key={notes._id} className="border flex justify-between">
+							<div key={notes.note} className="border flex justify-between">
 								<div className="ml-2">
 									<p className="text-xs">{notes.dateAdded}</p>
 									<p>{notes.note}</p>
@@ -62,7 +62,9 @@ function NotesButton() {
 				placeholder="Enter any aditional notes"
 			></textarea>
 			<button
-				onClick={() => addNote(notes, params)}
+				onClick={() => {
+					addNote(notes, params);
+				}}
 				className="inline-block  border border-black-600 hover:bg-green-600 hover:text-white active:bg-green-500 focus:outline-none focus:ring className='inline-block px-5 py-3  text-sm font-medium text-white bg-blue-500 rounded-lg"
 			>
 				Add Note

@@ -55,7 +55,7 @@ function ClientDashboard() {
 							let aSpace = " ";
 							let newWord = key.split(/(?=[A-Z])/).join(aSpace);
 							return (
-								<div key={val}>
+								<div key={key}>
 									<p className="text-xs">{newWord}</p>
 									<p className="text-base mb-2">
 										{val === "" ? "Unknown" : val}
@@ -69,7 +69,7 @@ function ClientDashboard() {
 							let aSpace = " ";
 							let newWord = key.split(/(?=[A-Z])/).join(aSpace);
 							return (
-								<div key={val}>
+								<div key={key}>
 									<p className="text-xs">{newWord}</p>
 									<p className="text-base mb-2">
 										{val === "" ? "Unknown" : val}
