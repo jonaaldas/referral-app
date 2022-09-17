@@ -12,7 +12,7 @@ const referralMongoose = mongoose.Schema({
 	clientsPhoneNumber: {type: Number, required: true},
 	clientsEmail: {type: String, required: true},
 	closed: {type: Boolean, default: false},
-	referredDate: { type: Date},
+	referredDate: { type: String},
 	realtorsName: {type: String, required: true},
 	realtorsEmail: {type: String, required: true},
 	realtorsPhone: {type: String, required: true},
@@ -29,7 +29,7 @@ const referralMongoose = mongoose.Schema({
 	agentNotes: [
 		{
 			note: {type: String},
-			dateAdded: { type: Date },
+			dateAdded: { type: String },
 		},
 	]
 }, {

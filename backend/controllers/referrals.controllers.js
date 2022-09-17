@@ -12,8 +12,7 @@ export const getReferrals =  async (req, res) =>{
 // @route Post/api/createreferrals
 // @access Private
 export const createReferrals = async(req, res) =>{
-  const date = new Date();
-	const timeAndDate = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+  dateTime()
 try {
   const {
     referralType,
@@ -47,7 +46,7 @@ try {
       realtorsPhone,
       referredDate
   })
-  referral.referredDate = timeAndDate
+  referral.referredDate = dateTime()
   referral.ClientDetails = {
     PropertyType: PropertyType  ? PropertyType : '',
     BedsandBaths: BedsandBaths ? BedsandBaths : ''
@@ -60,7 +59,7 @@ try {
   }
   referral.agentNotes.push({
     note: note,
-    dateAdded: timeAndDate
+    dateAdded: dateTime()
   })
   await referral.save()
   res.status(200).json(referral)
@@ -232,4 +231,20 @@ export const deleteNote = async (req, res)=> {
   } catch (error) {
     console.log(error)
   }
+}
+
+//date function 
+const dateTime = () => {
+  const currentdate = new Date();
+	return currentdate.getDate() +
+		"/" +
+		(currentdate.getMonth() + 1) +
+		"/" +
+		currentdate.getFullYear() +
+		" @ " +
+		currentdate.getHours() +
+		":" +
+		currentdate.getMinutes() +
+		":" +
+		currentdate.getSeconds();
 }

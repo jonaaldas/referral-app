@@ -1,4 +1,3 @@
-import SearchBar from "./SearchBar";
 import TimeOfDay from "./TimeOfDay";
 import { useNavigate, Link } from "react-router-dom";
 import { useReferralContext } from "../context/ReferalContext";
@@ -46,7 +45,6 @@ function Dashboard() {
 			<div>
 				<FilterButtons />
 			</div>
-			{<SearchBar />}
 			{referralClients}
 		</section>
 	);

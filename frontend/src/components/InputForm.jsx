@@ -3,7 +3,6 @@ import { Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { useReferralContext } from "../context/ReferalContext";
-import { v4 as uuidv4 } from "uuid";
 import FinancingQuestions from "./FinancingQuestions";
 import ClientDetailsQuestions from "./ClientDetailsQuestions";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -42,6 +41,12 @@ function InputForm() {
 		note: "",
 	});
 
+	const typeOfTransactions = [
+		{ label: "seller", value: "seller" },
+		{ label: "buyer", value: "buyer" },
+		{ label: "renter", value: "renter" },
+	];
+
 	useEffect(() => {
 		(async () => {
 			if (params.id) {
@@ -73,7 +78,7 @@ function InputForm() {
 						clientsName: Yup.string().required("Please add First Name"),
 						typeOfTransaction: Yup.string()
 							.required("Please Specify the type of transaction")
-							.oneOf(["seller", "buyer", "Seller", "Buyer"]),
+							.oneOf(["seller", "buyer", "renter"]),
 						clientsPhoneNumber: Yup.string().required(
 							"Phone number is required"
 						),
@@ -93,14 +98,13 @@ function InputForm() {
 								onChange={handleChange}
 								placeholder="Enter Clients Name"
 							/>
-
 							<input
 								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"'
 								type="text"
 								name="typeOfTransaction"
-								value={values.typeOfTransaction.toLocaleLowerCase()}
+								value={values.typeOfTransaction}
 								onChange={handleChange}
-								placeholder="Enter Transaction Type"
+								placeholder="Enter Transaction Type (Buyer, Seller or Renter)"
 							/>
 							<input
 								className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
