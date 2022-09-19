@@ -1,13 +1,14 @@
 import axios from 'axios'
 
 const url = 'http://localhost:5015/'
+
 // get all Referrals
 export const getAllReferralsRequest = async (token) => {
   try {
        return await axios.get(url + 'api/getreferrals',{ headers: {"Authorization" : `Bearer ${token}`}})
   } catch (error) {
     return error
-  }
+  } 
 }
 
 // create referrals
