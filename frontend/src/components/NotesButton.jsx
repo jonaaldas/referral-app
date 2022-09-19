@@ -8,7 +8,6 @@ import { useReferralContext } from "../context/ReferalContext";
 
 function NotesButton() {
 	const { referrals, addNote, deleteNote, dateTime } = useReferralContext();
-	const { referral, setReferral } = useState([]);
 	const params = useParams();
 	const navigate = useNavigate();
 	const [values] = useState({
@@ -46,14 +45,13 @@ function NotesButton() {
 				</div>
 			);
 		});
-	const x = referrals.find((foo) => foo._id === params.id);
-	// console.log(x.referralType);
+	const referralClientCheck = referrals.find((foo) => foo._id === params.id);
 	return (
 		<div>
 			<button onClick={() => navigate("/client-information/" + params.id)}>
 				<TiChevronLeft className="text-5xl text-blue-500 mt-2 ml-2 mb-3" />
 			</button>
-			{x?.referralType === "recieved" ? (
+			{referralClientCheck?.referralType === "recieved" ? (
 				<Formik
 					initialValues={values}
 					onSubmit={(values, { resetForm }) => {
