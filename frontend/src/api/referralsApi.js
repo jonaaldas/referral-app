@@ -17,7 +17,7 @@ export const createReferralsRequest = async (token, client) =>{
     return await axios.post(url + 'api/createreferral', client,{ headers: {"Authorization" : `Bearer ${token}`}})
   } catch (error) {
     return error
-  }
+  } 
 }
 
 // get one referral to edit 
