@@ -3,9 +3,12 @@ import { useState } from "react";
 import * as Yup from "yup";
 import AuthInputs from "./AuthInputs";
 import { useReferralContext } from "../context/ReferalContext";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
 	const { isSignUp, registerUser, logIn, setIsSingedUp } = useReferralContext();
+
+	const navigate = useNavigate();
 
 	const [values] = useState(
 		isSignUp
@@ -26,9 +29,7 @@ function Auth() {
 					email: Yup.string()
 						.required("Email is a required field")
 						.email("Invalid email format"),
-					password: Yup.string()
-						.required("Password is a required field")
-						.min(8, "Password must be at least 8 characters"),
+					password: Yup.string().required("Password is a required field"),
 			  }
 			: {
 					name: Yup.string().required(),
@@ -106,6 +107,9 @@ function Auth() {
 									name="password"
 									className="text-muted form-text"
 								/>
+								{isSignUp && (
+									<p onClick={() => navigate("/forgot")}>Reset Password</p>
+								)}
 							</div>
 							<div className="mt-6">
 								<button

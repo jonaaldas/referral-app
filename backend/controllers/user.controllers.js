@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import userSchema from '../models/user.js'
-
+import nodemailer from 'nodemailer'
 
 // @desc Create User
 // @route Post/api/user/register
@@ -56,8 +56,10 @@ export const registerUser = async (req, res) => {
 export const logInUser = async (req, res) => {
   try {
     const {email, password} = req.body
+
     const user = await userSchema.findOne({email})
-    if(user && (bcrypt.compare(password, user.password))){
+    console.log(user.password, password)
+     if(user && (await bcrypt.compare(password, user.password))){
       res.json({
         _id: user.id,
         name: user.name,
@@ -90,3 +92,76 @@ export const getUserData = async (req, res) => {
   })
 }
 
+// forgot passowrd 
+export const forgotPassword = (req, res) => {
+  const email = req.body.email
+  userSchema.find({email}, (err, user) => {
+    if(err || !user){
+      return res.status(400).json({erro: 'User with this email already exists'})
+    }
+
+    const token = jwt.sign({_id: user.id}, `${process.env.RESET_PASSWORD_KEY}`, {expiresIn: '15m'})
+
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth:{
+        user: `${process.env.GOOGLE_APP_EMAIL}`,
+        pass: `${process.env.GOOGLE_APP_PW}`
+      }
+    })
+
+    const data = {
+      from: 'noreply@referrals.io',
+      to: email,
+      subject: 'Reset Account Password Link',
+      html: `
+        <h3>Please click the link below to reset password</h3>
+        <p>${process.env.CLIENT_URL}/update-password/${token}<p/>
+      `
+    }
+
+    return userSchema.updateOne({resetLink: token}, (err, user) => {
+      if(err){
+        return res.status(400).json({error: 'reset password link error'})
+      } else {
+        transporter.sendMail(data, function(error, body){
+          if(error){
+            return res.status(400).json({error: error.message})
+          }
+          return res.status(200).json({message: 'Email has been sent, please follow the instructions'})
+        })
+      }
+    })
+  })
+}
+
+
+// updatePassword 
+
+export const updatePassowrd = async (req, res) => {
+  const {token, password} = req.body
+  if(token){
+    jwt.verify(token, `${process.env.RESET_PASSWORD_KEY}`, function (error, decodeData){
+      if(error){
+        return res.status(400).json({error: 'incorect token or it is expired'})
+      }
+      userSchema.findOne({resetLink: token}, (err, user)=>{
+        if(err||!user){
+          return res.status(400).json({error: 'User with this token does not exist'})
+        }
+        user.password = password
+        user.save((err, result) => {
+          if(err){
+            return res.status(400).json({error: 'Reset Password Error'})
+          } else {
+            return res.status(200).json({message: 'Your password has benn changed'})
+          }
+        })
+      })
+    })
+  } else {
+    return res.status(401).json({error: 'Auth Error'})
+  }
+}

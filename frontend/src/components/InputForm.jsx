@@ -51,7 +51,6 @@ function InputForm() {
 		(async () => {
 			if (params.id) {
 				let values = await getSingleReferralToEdit(params.id);
-				console.log(values.data);
 				setInputValues(values.data);
 			}
 		})();
@@ -78,7 +77,14 @@ function InputForm() {
 						clientsName: Yup.string().required("Please add First Name"),
 						typeOfTransaction: Yup.string()
 							.required("Please Specify the type of transaction")
-							.oneOf(["seller", "buyer", "renter"]),
+							.oneOf([
+								"seller",
+								"buyer",
+								"renter",
+								"Seller",
+								"Buyer",
+								"Renter",
+							]),
 						clientsPhoneNumber: Yup.string().required(
 							"Phone number is required"
 						),

@@ -13,7 +13,8 @@ const userSchema = mongoose.Schema({
   password:{
     type: String,
     requiered: [true, 'Please add a password']
-  }
+  },
+  resetpassword: {data: String, default:''}
 }, 
 {
   timestanmp: true

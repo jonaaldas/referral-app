@@ -6,7 +6,7 @@ import {errorHandler} from './middleware/errorMiddlewear.js'
 import {mongodb} from './config/db.js'
 
 import cors from 'cors'
-const port = process.env.PORT || 5012
+const port = process.env.PORT || 5015
 
 
 

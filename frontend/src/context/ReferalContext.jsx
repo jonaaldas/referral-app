@@ -6,6 +6,8 @@ import {
 	logInUserRequest,
 	registerUserRequest,
 	getUserRequest,
+	forgotPasswordRequest,
+	updatePasswordRequest,
 } from "../api/userApi";
 import {
 	getAllReferralsRequest,
@@ -44,7 +46,6 @@ function ReferalProvider({ children }) {
 	const addNote = async (note, params) => {
 		let userToken = JSON.parse(user);
 		const res = await addANoteRequest(userToken.token, note, params.id);
-		console.log(res.data);
 		let referralClient = referrals.filter((x) => {
 			return x._id === params.id;
 		});
@@ -78,7 +79,6 @@ function ReferalProvider({ children }) {
 	const sendRefferal = async (client) => {
 		let userToken = JSON.parse(user);
 		const res = await createReferralsRequest(userToken.token, client);
-		console.log(res);
 		setReferrals((prevReferrals) => [...prevReferrals, res.data]);
 	};
 
@@ -86,7 +86,6 @@ function ReferalProvider({ children }) {
 	const editReferralInformation = async (client, id) => {
 		let userToken = JSON.parse(user);
 		const res = await editReferralRequest(userToken.token, client, id);
-		console.log(res);
 		setReferrals(
 			referrals.map((clientReferral) =>
 				clientReferral._id === id ? res.data : clientReferral
@@ -117,11 +116,11 @@ function ReferalProvider({ children }) {
 	};
 	// ============== Referral manipulation Crud END =================
 
+	// ============== User functions start =================
 	// const register
 
 	const registerUser = async (name, email, password) => {
 		const res = await registerUserRequest(name, email, password);
-		console.log(res);
 		if (res?.response?.status === 400) {
 			toast("User already Exists");
 			navigate("/auth");
@@ -151,20 +150,31 @@ function ReferalProvider({ children }) {
 		}
 	};
 
+	// forgot password
+	const forgotPassword = async (email) => {
+		const res = await forgotPasswordRequest(email);
+		console.log(res);
+	};
+
+	// update passowrd
+	const updatePassowrd = async (password, token) => {
+		const res = await updatePasswordRequest(password, token);
+		console.log(res);
+	};
+
 	const getUser = async (token) => {
 		const res = await getUserRequest(token);
 		// console.log(res);
 	};
+
+	// ============== User Functions Ends =================
 	useEffect(() => {
 		(async () => {
-			if (!localStorage.getItem("user")) {
-				navigate("/auth");
-			} else {
+			if (localStorage.getItem("user")) {
 				setUser(localStorage.getItem("user"));
 				console.log("i am running");
 				if (user && user !== "" && user !== undefined) {
 					await getAllReferralls(JSON.parse(user).token);
-					// console.log(JSON.parse(user).token);
 				}
 			}
 		})();
@@ -189,6 +199,8 @@ function ReferalProvider({ children }) {
 				registerUser,
 				logOut,
 				logIn,
+				forgotPassword,
+				updatePassowrd,
 				user,
 			}}
 		>
