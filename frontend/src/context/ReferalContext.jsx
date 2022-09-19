@@ -1,6 +1,4 @@
 import { useState, createContext, useContext } from "react";
-import data from "../referals.json";
-import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import {
 	logInUserRequest,
@@ -41,16 +39,36 @@ function ReferalProvider({ children }) {
 	// user from backedn
 	const [user, setUser] = useState("");
 
+	const dateTime = () => {
+		const currentdate = new Date();
+		return (
+			currentdate.getMonth() +
+			1 +
+			"/" +
+			currentdate.getDate() +
+			"/" +
+			currentdate.getFullYear() +
+			" @ " +
+			currentdate.getHours() +
+			":" +
+			currentdate.getMinutes() +
+			":" +
+			currentdate.getSeconds()
+		);
+	};
+
 	// ==============Note manipulation Crud =================
 	// add a note to referral profile
 	const addNote = async (note, params) => {
 		let userToken = JSON.parse(user);
 		const res = await addANoteRequest(userToken.token, note, params.id);
-		let referralClient = referrals.filter((x) => {
-			return x._id === params.id;
-		});
-		referralClient[0].agentNotes.push(note);
-		setReferrals((prevNotes) => [...prevNotes, referralClient]);
+		if (res.status === 200) {
+			let referralClient = referrals.filter((x) => {
+				return x._id === params.id;
+			});
+			referralClient[0].agentNotes.push(note);
+			setReferrals((prevNotes) => [...prevNotes, referralClient]);
+		}
 	};
 
 	// delete Note
@@ -91,15 +109,14 @@ function ReferalProvider({ children }) {
 				clientReferral._id === id ? res.data : clientReferral
 			)
 		);
+		toast("Referral has been updated");
 	};
 
 	// get Single Referral to edit information
 	const getSingleReferralToEdit = async (id) => {
 		let userToken = JSON.parse(user);
 		const res = await getOneReferralToEditRequest(userToken.token, id);
-		console.log(res);
 		return res;
-		// referrals.filter((referral) => referral.id === id)[0];
 	};
 
 	// delete referral Client
@@ -163,8 +180,7 @@ function ReferalProvider({ children }) {
 	};
 
 	const getUser = async (token) => {
-		const res = await getUserRequest(token);
-		// console.log(res);
+		return await getUserRequest(token);
 	};
 
 	// ============== User Functions Ends =================
@@ -187,6 +203,7 @@ function ReferalProvider({ children }) {
 				filteredReferrals,
 				activeButtons,
 				isSignUp,
+				dateTime,
 				setFilteredReferrals,
 				setActiveButtons,
 				setIsSingedUp,

@@ -236,9 +236,9 @@ export const deleteNote = async (req, res)=> {
 //date function 
 const dateTime = () => {
   const currentdate = new Date();
-	return currentdate.getDate() +
-		"/" +
-		(currentdate.getMonth() + 1) +
+	return (currentdate.getMonth() + 1)  +
+		"/" + currentdate.getDate()
+		 +
 		"/" +
 		currentdate.getFullYear() +
 		" @ " +

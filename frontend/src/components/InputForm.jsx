@@ -41,12 +41,6 @@ function InputForm() {
 		note: "",
 	});
 
-	const typeOfTransactions = [
-		{ label: "seller", value: "seller" },
-		{ label: "buyer", value: "buyer" },
-		{ label: "renter", value: "renter" },
-	];
-
 	useEffect(() => {
 		(async () => {
 			if (params.id) {
@@ -64,13 +58,14 @@ function InputForm() {
 				<h2 className="text-2xl font-bold sm:text-3xl">Send a new Referral</h2>
 				<Formik
 					initialValues={inputValues}
-					onSubmit={(values) => {
+					onSubmit={(values, { resetForm }) => {
 						if (params.id) {
 							editReferralInformation(values, params.id);
 						} else {
 							sendRefferal(values);
 						}
 						navigate("/");
+						resetForm();
 					}}
 					enableReinitialize
 					validationSchema={Yup.object({
@@ -191,17 +186,19 @@ function InputForm() {
 									handleChange={{ handleChange }}
 								/>
 							) : null}
-							<textarea
-								className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-								cols="30"
-								rows="10 "
-								value={
-									values?.agentNotes ? values.agentNotes[0].note : values.note
-								}
-								name={values?.agentNotes ? "agentNotes[0].note" : "note"}
-								onChange={handleChange}
-								placeholder="Enter any aditional notes"
-							></textarea>
+							{!params.id ? (
+								<textarea
+									className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+									cols="30"
+									rows="10 "
+									value={
+										values?.agentNotes ? values.agentNotes[0].note : values.note
+									}
+									name={values?.agentNotes ? "agentNotes[0].note" : "note"}
+									onChange={handleChange}
+									placeholder="Enter any aditional notes"
+								></textarea>
+							) : null}
 
 							<button
 								type="submit"
