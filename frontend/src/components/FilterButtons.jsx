@@ -16,21 +16,21 @@ function FilterButtons() {
 	return (
 		<div>
 			<button
-				className="inline-block  border border-black-600 hover:bg-green-600 hover:text-white active:bg-green-500 focus:outline-none focus:ring className='inline-block px-5 py-3  text-sm font-medium text-white bg-blue-500 rounded-lg"
+				className="inline-block  border border-black-600 hover:bg-blue-600 hover:text-white active:bg-blue-500 focus:outline-none focus:ring className='inline-block px-5 py-3  text-sm font-medium text-white bg-blue-500 rounded-lg"
 				onClick={() => setActiveButtons("")}
 			>
 				All
 			</button>
 
 			<button
-				className="inline-block  border border-black-600 hover:bg-green-600 hover:text-white active:bg-green-500 focus:outline-none focus:ring className='inline-block px-5 py-3  text-sm font-medium text-white bg-blue-500 rounded-lg"
+				className="inline-block  border border-black-600 hover:bg-blue-600 hover:text-white active:bg-blue-500 focus:outline-none focus:ring className='inline-block px-5 py-3  text-sm font-medium text-white bg-blue-500 rounded-lg"
 				onClick={() => setActiveButtons("sent")}
 			>
 				Sent
 			</button>
 
 			<button
-				className="inline-block  border border-black-600 hover:bg-green-600 hover:text-white active:bg-green-500 focus:outline-none focus:ring className='inline-block px-5 py-3  text-sm font-medium text-white bg-blue-500 rounded-lg"
+				className="inline-block  border border-black-600 hover:bg-blue-600 hover:text-white active:bg-blue-500 focus:outline-none focus:ring className='inline-block px-5 py-3  text-sm font-medium text-white bg-blue-500 rounded-lg"
 				onClick={() => setActiveButtons("recieved")}
 			>
 				Recieved

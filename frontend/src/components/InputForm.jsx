@@ -3,7 +3,6 @@ import { Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { useReferralContext } from "../context/ReferalContext";
-import { v4 as uuidv4 } from "uuid";
 import FinancingQuestions from "./FinancingQuestions";
 import ClientDetailsQuestions from "./ClientDetailsQuestions";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -32,36 +31,24 @@ function InputForm() {
 		referredDate: timeAndDate,
 		realtorsName: "Talya Foale",
 		realtorsEmail: "amatissoffg@epa.gov",
-		realtorsPhone: "(555) 340-7170",
-		id: uuidv4(),
-		ClientDetails: {
-			PropertyType: "",
-			BedsandBaths: "",
-		},
-		FinancingDetails: {
-			Financing: "",
-			LendersName: "",
-			LendersPhoneNumber: "",
-			LendersEmail: "",
-		},
-		notes: [
-			{
-				id: uuidv4(),
-				note: "",
-				dateAdded: timeAndDate,
-			},
-		],
+		realtorsPhone: "123123123",
+		PropertyType: "",
+		BedsandBaths: "",
+		Financing: "",
+		LendersName: "",
+		LendersPhoneNumber: "",
+		LendersEmail: "",
+		note: "",
 	});
 
 	useEffect(() => {
 		(async () => {
 			if (params.id) {
 				let values = await getSingleReferralToEdit(params.id);
-				setInputValues(values);
+				setInputValues(values.data);
 			}
 		})();
 	}, [params.id, getSingleReferralToEdit]);
-	console.log(inputValues);
 	return (
 		<>
 			<Link to="/">
@@ -71,20 +58,28 @@ function InputForm() {
 				<h2 className="text-2xl font-bold sm:text-3xl">Send a new Referral</h2>
 				<Formik
 					initialValues={inputValues}
-					onSubmit={(values) => {
+					onSubmit={(values, { resetForm }) => {
 						if (params.id) {
 							editReferralInformation(values, params.id);
 						} else {
 							sendRefferal(values);
 						}
 						navigate("/");
+						resetForm();
 					}}
 					enableReinitialize
 					validationSchema={Yup.object({
 						clientsName: Yup.string().required("Please add First Name"),
 						typeOfTransaction: Yup.string()
 							.required("Please Specify the type of transaction")
-							.oneOf(["seller", "buyer", "Seller", "Buyer"]),
+							.oneOf([
+								"seller",
+								"buyer",
+								"renter",
+								"Seller",
+								"Buyer",
+								"Renter",
+							]),
 						clientsPhoneNumber: Yup.string().required(
 							"Phone number is required"
 						),
@@ -104,14 +99,13 @@ function InputForm() {
 								onChange={handleChange}
 								placeholder="Enter Clients Name"
 							/>
-
 							<input
 								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"'
 								type="text"
 								name="typeOfTransaction"
-								value={values.typeOfTransaction.toLocaleLowerCase()}
+								value={values.typeOfTransaction}
 								onChange={handleChange}
-								placeholder="Enter Transaction Type"
+								placeholder="Enter Transaction Type (Buyer, Seller or Renter)"
 							/>
 							<input
 								className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
@@ -153,10 +147,10 @@ function InputForm() {
 							</div>
 							{lenderQuestionBoolean === true ||
 							(params.id &&
-								values.FinancingDetails.LendersName !== "" &&
-								values.FinancingDetails.LendersEmail !== "" &&
-								values.FinancingDetails.LendersPhoneNumber !== "" &&
-								values.FinancingDetails.Financing !== "") ? (
+								values.LendersName !== "" &&
+								values.LendersEmail !== "" &&
+								values.LendersPhoneNumber !== "" &&
+								values.Financing !== "") ? (
 								<FinancingQuestions
 									value={{ values }}
 									handleChange={{ handleChange }}
@@ -185,22 +179,26 @@ function InputForm() {
 								</div>
 							</div>
 							{clientDetailsBoolean === true ||
-							(params.id && values.ClientDetails.PropertyType !== "") ||
-							values.ClientDetails.BedsandBaths !== "" ? (
+							(params.id && values.PropertyType !== "") ||
+							values.BedsandBaths !== "" ? (
 								<ClientDetailsQuestions
 									value={{ values }}
 									handleChange={{ handleChange }}
 								/>
 							) : null}
-							<textarea
-								className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-								cols="30"
-								rows="10 "
-								value={values.notes[0].note}
-								name="notes[0].note"
-								onChange={handleChange}
-								placeholder="Enter any aditional notes"
-							></textarea>
+							{!params.id ? (
+								<textarea
+									className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+									cols="30"
+									rows="10 "
+									value={
+										values?.agentNotes ? values.agentNotes[0].note : values.note
+									}
+									name={values?.agentNotes ? "agentNotes[0].note" : "note"}
+									onChange={handleChange}
+									placeholder="Enter any aditional notes"
+								></textarea>
+							) : null}
 
 							<button
 								type="submit"

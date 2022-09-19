@@ -6,30 +6,30 @@ function ClientDashboard() {
 	const navigate = useNavigate();
 	const params = useParams();
 	const eachClient = referrals
-		.filter((foo) => foo.id === params.id)
+		.filter((foo) => foo._id === params.id)
 		.map((data) => {
 			return (
-				<div key={data.id}>
+				<div key={data._id}>
 					<div className="flex place-content-between">
 						<Link to="/">
 							<TiChevronLeft className="text-5xl text-blue-500 mt-2 ml-2 mb-3" />
 						</Link>
 						<div>
 							<button
-								onClick={() => navigate(`/update-client-notes/${data.id}`)}
-								className="inline-block  border border-black-600 hover:bg-green-600 hover:text-white active:bg-green-500 focus:outline-none focus:ring className='inline-block px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg mt-2 mr-2 mb-3"
+								onClick={() => navigate(`/update-client-notes/${data._id}`)}
+								className="inline-block  border border-black-600 hover:bg-blue-600 hover:text-white active:bg-blue-500 focus:outline-none focus:ring className='inline-block px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg mt-2 mr-2 mb-3"
 							>
 								Update Notes
 							</button>
 							<button
-								onClick={() => navigate(`/edit-informatio/${data.id}`)}
-								className="inline-block  border border-black-600 hover:bg-green-600 hover:text-white active:bg-green-500 focus:outline-none focus:ring className='inline-block px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg mt-2 mr-2 mb-3"
+								onClick={() => navigate(`/edit-informatio/${data._id}`)}
+								className="inline-block  border border-black-600 hover:bg-blue-600 hover:text-white active:bg-blue-500 focus:outline-none focus:ring className='inline-block px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg mt-2 mr-2 mb-3"
 							>
 								Edit Informatio
 							</button>
 						</div>
 					</div>
-					<div key={data.id} className="mx-6 mb-4 space-y-4">
+					<div key={data._id} className="mx-6 mb-4 space-y-4">
 						<h1 className="text-2xl">{data.clientsName}</h1>
 						<div className="flex items-center ">
 							<p className="text-sm text-center">{data.typeOfTransaction}</p>
@@ -55,7 +55,7 @@ function ClientDashboard() {
 							let aSpace = " ";
 							let newWord = key.split(/(?=[A-Z])/).join(aSpace);
 							return (
-								<div key={val}>
+								<div key={key}>
 									<p className="text-xs">{newWord}</p>
 									<p className="text-base mb-2">
 										{val === "" ? "Unknown" : val}
@@ -69,7 +69,7 @@ function ClientDashboard() {
 							let aSpace = " ";
 							let newWord = key.split(/(?=[A-Z])/).join(aSpace);
 							return (
-								<div key={val}>
+								<div key={key}>
 									<p className="text-xs">{newWord}</p>
 									<p className="text-base mb-2">
 										{val === "" ? "Unknown" : val}
