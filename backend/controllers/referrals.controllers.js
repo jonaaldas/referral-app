@@ -1,39 +1,56 @@
-import referralsSchema from '../models/referral.js'
-import userShcema from '../models/user.js'
+/* eslint-disable max-len */
+// eslint-disable-next-line import/extensions
+import ReferralsSchema from '../models/referral.js';
+// date function
+const dateTime = () => {
+  const currentdate = new Date();
+  return `${currentdate.getMonth() + 1
+  }/${currentdate.getDate()
+
+  }/${
+    currentdate.getFullYear()
+  } @ ${
+    currentdate.getHours()
+  }:${
+    currentdate.getMinutes()
+  }:${
+    currentdate.getSeconds()}`;
+};
+
 // @desc Get Goals
 // @route Get/api/getreferrals
 // @access Private
-export const getReferrals =  async (req, res) =>{
-  const referrals = await referralsSchema.find({user: req.user.id})
-  res.status(200).json(referrals)
-}
+export const getReferrals = async (req, res) => {
+  const referrals = await ReferralsSchema.find({ user: req.user.id });
+  res.status(200).json(referrals);
+};
 
 // @desc Create Referral
 // @route Post/api/createreferrals
 // @access Private
-export const createReferrals = async(req, res) =>{
-  dateTime()
-try {
-  const {
-    referralType,
-    clientsName,
-    typeOfTransaction,
-    clientsPhoneNumber,
-    clientsEmail,
-    closed, 
-    realtorsName,
-    realtorsEmail,
-    realtorsPhone,
-    PropertyType,
-    BedsandBaths,
-    note,
-    Financing,
-    LendersName,
-    LendersPhoneNumber,
-    LendersEmail,
-    referredDate
-  } = req.body
-  const referral =  new referralsSchema({
+export const createReferrals = async (req, res) => {
+  dateTime();
+  try {
+    const {
+      referralType,
+      clientsName,
+      typeOfTransaction,
+      clientsPhoneNumber,
+      clientsEmail,
+      closed,
+      realtorsName,
+      realtorsEmail,
+      realtorsPhone,
+      PropertyType,
+      BedsandBaths,
+      note,
+      Financing,
+      LendersName,
+      LendersPhoneNumber,
+      LendersEmail,
+      referredDate,
+    } = req.body;
+    const referral = new ReferralsSchema({
       user: req.user.id,
       referralType,
       clientsName,
@@ -44,63 +61,63 @@ try {
       realtorsName,
       realtorsEmail,
       realtorsPhone,
-      referredDate
-  })
-  referral.referredDate = dateTime()
-  referral.ClientDetails = {
-    PropertyType: PropertyType  ? PropertyType : '',
-    BedsandBaths: BedsandBaths ? BedsandBaths : ''
+      referredDate,
+    });
+    referral.referredDate = dateTime();
+    referral.ClientDetails = {
+      PropertyType: PropertyType || '',
+      BedsandBaths: BedsandBaths || '',
+    };
+    referral.FinancingDetails = {
+      Financing: Financing || '',
+      LendersName: LendersName || '',
+      LendersPhoneNumber: LendersPhoneNumber || '',
+      LendersEmail: LendersEmail || '',
+    };
+    referral.agentNotes.push({
+      note,
+      dateAdded: dateTime(),
+    });
+    await referral.save();
+    return res.status(200).json(referral);
+  } catch (error) {
+    return error;
   }
-  referral.FinancingDetails = {
-    Financing: Financing ? Financing : '',
-    LendersName: LendersName ? LendersName : '',
-    LendersPhoneNumber: LendersPhoneNumber ? LendersPhoneNumber : '',
-    LendersEmail: LendersEmail ? LendersEmail : ''
-  }
-  referral.agentNotes.push({
-    note: note,
-    dateAdded: dateTime()
-  })
-  await referral.save()
-  res.status(200).json(referral)
-} catch (error) {
-  console.log(error)
-  }
-}
+};
 
 // @desc Update Referral
 // @route Put/api/updatereferral/:id
 // @access Private
-export const updateReferral = async(req, res) =>{
+export const updateReferral = async (req, res) => {
   try {
-    const refferalToUpdate = await referralsSchema.findById(req.params.id)
+    const refferalToUpdate = await ReferralsSchema.findById(req.params.id);
 
-    if(!refferalToUpdate){
-      res.status(400)
-      throw new Error("refferal Note found")
+    if (!refferalToUpdate) {
+      res.status(400);
+      throw new Error('refferal Note found');
     }
 
     // check for user
-    if(!req.user){
-       res.data(401)
-       throw new Error('User not Found')
+    if (!req.user) {
+      res.data(401);
+      throw new Error('User not Found');
     }
 
     // make sure the log in user mathces the goal user
-    if(refferalToUpdate.user.toString() !== req.user.id){
-      res.status(401)
-      throw new Error('User not authorized')
+    if (refferalToUpdate.user.toString() !== req.user.id) {
+      res.status(401);
+      throw new Error('User not authorized');
     }
 
-    const updatedReferral = await referralsSchema.findByIdAndUpdate(req.params.id, req.body, {
-      new: true
-    })
-    
-    res.status(200).json(updatedReferral)
+    const updatedReferral = await ReferralsSchema.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+
+    return res.status(200).json(updatedReferral);
   } catch (error) {
-    console.log(error)
+    return error;
   }
-}
+};
 
 // @desc Get Single Referral
 // @route GET/api/getsinglereferral/:id
@@ -108,143 +125,124 @@ export const updateReferral = async(req, res) =>{
 export const getSingleReferral = async (req, res) => {
   try {
     // check for user
-    if(!req.user){
-      res.data(401)
-      throw new Error('User not Found')
-   }
-
-    const singleReferral = await referralsSchema.findById(req.params.id)
-    if(singleReferral===null ){
-      res.status(400).json("refferal Note found")
-    } else {
-      res.status(200).json(singleReferral)
+    if (!req.user) {
+      res.data(401);
+      throw new Error('User not Found');
     }
+
+    const singleReferral = await ReferralsSchema.findById(req.params.id);
+    if (singleReferral === null) {
+      return res.status(400).json('refferal Note found');
+    }
+    return res.status(200).json(singleReferral);
   } catch (error) {
-    console.log(error)
+    return error;
   }
-  
-}
+};
 
 // @desc Delete Referral
 // @route delete/api/deletereferral/:id
 // @access Private
-export const deleteReferral = async(req, res) =>{
+export const deleteReferral = async (req, res) => {
   try {
-    const refferalToDelete = await referralsSchema.findById(req.params.id)  
+    const refferalToDelete = await ReferralsSchema.findById(req.params.id);
 
-    if(!refferalToDelete){
-      res.status(400)
-      throw new Error("refferal Not Found")
+    if (!refferalToDelete) {
+      res.status(400);
+      throw new Error('refferal Not Found');
     }
     // check for user
-    if(!req.user){
-       res.data(401)
-       throw new Error('User not Found')
+    if (!req.user) {
+      res.data(401);
+      throw new Error('User not Found');
     }
 
     // make sure the log in user mathces the goal user
-    if(refferalToDelete.user.toString() !== req.user.id){
-      res.status(401)
-      throw new Error('User not authorized')
+    if (refferalToDelete.user.toString() !== req.user.id) {
+      res.status(401);
+      throw new Error('User not authorized');
     }
     // console.log(refferalToDelete.user, req.user)
-    await refferalToDelete.remove()
+    await refferalToDelete.remove();
 
-  const refferralToBeDelted = await referralsSchema.findByIdAndDelete(req.params.id)
+    const refferralToBeDelted = await ReferralsSchema.findByIdAndDelete(req.params.id);
 
-  res.status(200).json(refferralToBeDelted)
+    return res.status(200).json(refferralToBeDelted);
   } catch (error) {
-    console.log(error)
-  } 
-}
-
+    return error;
+  }
+};
 
 // notes CRUD API
 
 // @desc  POST referral Notes
-// @route POST/api/createNote/:referral_id
+// @route POST/api/createNote/:referralId
 // @access Private
 
-export const createNote = async(req, res) => {
+export const createNote = async (req, res) => {
   try {
-    const referralToAddNote = await referralsSchema.findById(req.params.id)
-    if(referralToAddNote.user.toString() !== req.user.id){
-      res.status(401)
-      throw new Error('User not authorized')
+    const referralToAddNote = await ReferralsSchema.findById(req.params.id);
+    if (referralToAddNote.user.toString() !== req.user.id) {
+      res.status(401);
+      throw new Error('User not authorized');
     }
-    const referralWithNewNote = await referralsSchema.findByIdAndUpdate({_id: req.params.id}, {$push: {
-      agentNotes: req.body 
-    }})
-    await referralWithNewNote.save()
-    res.status(200).json(referralWithNewNote)
+    const referralWithNewNote = await ReferralsSchema.findByIdAndUpdate({ _id: req.params.id }, {
+      $push: {
+        agentNotes: req.body,
+      },
+    });
+    await referralWithNewNote.save();
+    return res.status(200).json(referralWithNewNote);
   } catch (error) {
-    console.log(error)
+    return error;
   }
-}
+};
 
 // @desc PUT update note
-// @route PUT/api/updatenote/:referral_id/note/:note_id
+// @route PUT/api/updatenote/:referralId/note/:noteId
 // @access Private
 
 export const updateNote = async (req, res) => {
-  const {referral_id, note_id} = req.params
+  const { referralId, noteId } = req.params;
   try {
-    const referralToUpdateNote = await referralsSchema.findById(referral_id)
-    if(referralToUpdateNote.user.toString() !== req.user.id){
-      res.status(401)
-      throw new Error('User not authorized')
+    const referralToUpdateNote = await ReferralsSchema.findById(referralId);
+    if (referralToUpdateNote.user.toString() !== req.user.id) {
+      res.status(401);
+      throw new Error('User not authorized');
     }
-    const updatedNote = await referralsSchema.updateOne({
-      "agentNotes": {$elemMatch:{"_id": note_id}}
-    },{$set: {"agentNotes.$.note": req.body.note}})
-    res.status(200).json(updatedNote)
-
+    const updatedNote = await ReferralsSchema.updateOne({
+      agentNotes: { $elemMatch: { _id: noteId } },
+    }, { $set: { 'agentNotes.$.note': req.body.note } });
+    return res.status(200).json(updatedNote);
   } catch (error) {
-    console.log(error)
+    return error;
   }
-}
+};
 
-
-// remove 
+// remove
 // @desc Delete delete note
-// @route Delete/api/deletenote/:referral_id/note/:note_id
+// @route Delete/api/deletenote/:referralId/note/:noteId
 // @access Private
 
-export const deleteNote = async (req, res)=> {
+export const deleteNote = async (req, res) => {
   try {
-    const {referral_id, note_id} = req.params
+    const { referralId, noteId } = req.params;
 
-    const referralToDelete = await referralsSchema.findById(referral_id)
+    const referralToDelete = await ReferralsSchema.findById(referralId);
 
     if (!req.user) {
-      res.status(401)
-      throw new Error('User not found')
+      res.status(401);
+      throw new Error('User not found');
     }
 
-    if(referralToDelete.user.toString() !== req.user.id){
-      res.status(401)
-      throw new Error('User not authorized')
+    if (referralToDelete.user.toString() !== req.user.id) {
+      res.status(401);
+      throw new Error('User not authorized');
     }
-    
-    const deletedNote =  await referralsSchema.updateMany({'_id': referral_id}, {$pull: {agentNotes: {_id: note_id}}})
-    res.status(200).json(deletedNote)
+
+    const deletedNote = await ReferralsSchema.updateMany({ _id: referralId }, { $pull: { agentNotes: { _id: noteId } } });
+    return res.status(200).json(deletedNote);
   } catch (error) {
-    console.log(error)
+    return error;
   }
-}
-
-//date function 
-const dateTime = () => {
-  const currentdate = new Date();
-	return (currentdate.getMonth() + 1)  +
-		"/" + currentdate.getDate()
-		 +
-		"/" +
-		currentdate.getFullYear() +
-		" @ " +
-		currentdate.getHours() +
-		":" +
-		currentdate.getMinutes() +
-		":" +
-		currentdate.getSeconds();
-}
+};
