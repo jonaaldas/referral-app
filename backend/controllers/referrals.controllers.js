@@ -35,7 +35,7 @@ try {
   } = req.body
   const referral =  new referralsSchema({
       user: req.user.id,
-      referralType: 'recieved',
+      referralType,
       clientsName,
       typeOfTransaction,
       clientsPhoneNumber,
