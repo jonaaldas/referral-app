@@ -19,14 +19,16 @@ function ClientDashboard() {
 								onClick={() => navigate(`/update-client-notes/${data._id}`)}
 								className="inline-block  border border-black-600 hover:bg-blue-600 hover:text-white active:bg-blue-500 focus:outline-none focus:ring className='inline-block px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg mt-2 mr-2 mb-3"
 							>
-								Update Notes
+								{data.referralType === "sent" ? "See Notes" : "Update Notes"}
 							</button>
-							<button
-								onClick={() => navigate(`/edit-informatio/${data._id}`)}
-								className="inline-block  border border-black-600 hover:bg-blue-600 hover:text-white active:bg-blue-500 focus:outline-none focus:ring className='inline-block px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg mt-2 mr-2 mb-3"
-							>
-								Edit Informatio
-							</button>
+							{data.referralType === "sent" ? null : (
+								<button
+									onClick={() => navigate(`/edit-informatio/${data._id}`)}
+									className="inline-block  border border-black-600 hover:bg-blue-600 hover:text-white active:bg-blue-500 focus:outline-none focus:ring className='inline-block px-5 py-3 text-sm font-medium text-white bg-blue-500 rounded-lg mt-2 mr-2 mb-3"
+								>
+									Edit Informatio
+								</button>
+							)}
 						</div>
 					</div>
 					<div key={data._id} className="mx-6 mb-4 space-y-4">

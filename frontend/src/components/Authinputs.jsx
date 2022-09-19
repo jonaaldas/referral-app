@@ -1,4 +1,4 @@
-function AuthInput({
+function AuthInputs({
 	id,
 	type,
 	name,
@@ -25,4 +25,4 @@ function AuthInput({
 	);
 }
 
-export default AuthInput;
+export default AuthInputs;
