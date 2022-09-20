@@ -5,7 +5,7 @@ dotenv.config();
 
 export const mongodb = async () => {
   try {
-    return mongoose.connect(`${process.env.URL}`);
+    return mongoose.connect(`${process.env.DATABASE_URL}`);
   } catch (error) {
     return error;
   }
