@@ -5,7 +5,7 @@ const url = 'https://referral-io.adaptable.app/api/user/'
 
 export const registerUserRequest = async (name, email, password) => {
   try {
-    return await axios.post(url + 'register',{name,email,password})
+    return await axios.post(url + 'register',{headers:{ 'Access-Control-Allow-Origin': '*'}},{name,email,password})
   } catch (error) {
     return error
   }
@@ -14,7 +14,7 @@ export const registerUserRequest = async (name, email, password) => {
 
 export const logInUserRequest = async(email, password) => {
   try {
-    return await axios.post(url + 'login', {email, password})
+    return await axios.post(url + 'login', {headers:{ 'Access-Control-Allow-Origin': '*'}},{email, password})
   } catch (error) {
     return error
   }
@@ -22,7 +22,7 @@ export const logInUserRequest = async(email, password) => {
 
 export const getUserRequest = async (token) => {
   try {
-    return await axios.get(url + 'me',{ headers: {"Authorization" : `Bearer ${token}`}})
+    return await axios.get(url + 'me',{ headers: {"Authorization" : `Bearer ${token}`, 'Access-Control-Allow-Origin': '*',}})
   } catch (error) {
     console.log(error)
     return error
@@ -32,7 +32,7 @@ export const getUserRequest = async (token) => {
 
 export const forgotPasswordRequest = async (email) =>{
   try {
-    return await axios.post(url + "forgot", {email: email})
+    return await axios.post(url + "forgot",{headers:{ 'Access-Control-Allow-Origin': '*'}}, {email: email})
   } catch (error) {
     return error
   }
