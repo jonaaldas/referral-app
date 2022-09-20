@@ -75,7 +75,7 @@ function ReferalProvider({ children }) {
 	const deleteNote = async (notesId, params) => {
 		let userToken = JSON.parse(user);
 		const res = await deleteNoteRequest(userToken.token, notesId, params.id);
-		if (res.status === 200) {
+		if (res.status === 204) {
 			let referralClient = referrals.filter((x) => {
 				return x._id === params.id;
 			});
@@ -187,7 +187,6 @@ function ReferalProvider({ children }) {
 		(async () => {
 			if (localStorage.getItem("user")) {
 				setUser(localStorage.getItem("user"));
-				console.log("i am running");
 				if (user && user !== "" && user !== undefined) {
 					await getAllReferralls(JSON.parse(user).token);
 				}

@@ -91,16 +91,18 @@ function InputForm() {
 							onSubmit={handleSubmit}
 							className='flex content-center flex-col items-center w-6/12'
 						>
-							<select
-								name='referralType'
-								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
-								value={values.referralType}
-								onChange={handleChange}
-							>
-								<option>Are you sending or recieving a referral</option>
-								<option value='sent'>Send A Referral</option>
-								<option value='recieved'>Recieve A Referral</option>
-							</select>
+							{!params.id ? (
+								<select
+									name='referralType'
+									className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+									value={values.referralType}
+									onChange={handleChange}
+								>
+									<option>Are you sending or recieving a referral</option>
+									<option value='sent'>Send A Referral</option>
+									<option value='recieved'>Recieve A Referral</option>
+								</select>
+							) : null}
 							<input
 								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
 								type='text'
@@ -109,17 +111,19 @@ function InputForm() {
 								onChange={handleChange}
 								placeholder='Enter Clients Name'
 							/>
-							<select
-								name='typeOfTransaction'
-								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
-								value={values.typeOfTransaction}
-								onChange={handleChange}
-							>
-								<option>Choose type of Transaction</option>
-								<option value='buyer'>Buyer</option>
-								<option value='seller'>Seller</option>
-								<option value='renter'>Renter</option>
-							</select>
+							{!params.id ? (
+								<select
+									name='typeOfTransaction'
+									className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+									value={values.typeOfTransaction}
+									onChange={handleChange}
+								>
+									<option>Choose type of Transaction</option>
+									<option value='buyer'>Buyer</option>
+									<option value='seller'>Seller</option>
+									<option value='renter'>Renter</option>
+								</select>
+							) : null}
 							<input
 								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
 								type='number'
