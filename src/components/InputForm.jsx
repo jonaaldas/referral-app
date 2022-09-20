@@ -22,7 +22,7 @@ function InputForm() {
 	const timeAndDate = `${date.getMonth()}-${date.getDate()}-${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
 
 	const [inputValues, setInputValues] = useState({
-		referralType: "sent",
+		referralType: "",
 		clientsName: "",
 		typeOfTransaction: "",
 		clientsPhoneNumber: "",
@@ -51,11 +51,11 @@ function InputForm() {
 	}, [params.id, getSingleReferralToEdit]);
 	return (
 		<>
-			<Link to="/">
-				<TiChevronLeft className="text-5xl text-blue-500 mt-2 ml-2 mb-3" />
+			<Link to='/'>
+				<TiChevronLeft className='text-5xl text-blue-500 mt-2 ml-2 mb-3' />
 			</Link>
-			<section className="flex flex-col items-center justify-center">
-				<h2 className="text-2xl font-bold sm:text-3xl">Send a new Referral</h2>
+			<section className='flex flex-col items-center justify-center'>
+				<h2 className='text-2xl font-bold sm:text-3xl'>Send a new Referral</h2>
 				<Formik
 					initialValues={inputValues}
 					onSubmit={(values, { resetForm }) => {
@@ -89,56 +89,69 @@ function InputForm() {
 					{({ values, handleChange, handleSubmit }) => (
 						<form
 							onSubmit={handleSubmit}
-							className="flex content-center flex-col items-center w-6/12"
+							className='flex content-center flex-col items-center w-6/12'
 						>
+							<select
+								name='referralType'
+								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+								value={values.referralType}
+								onChange={handleChange}
+							>
+								<option>Are you sending or recieving a referral</option>
+								<option value='sent'>Send A Referral</option>
+								<option value='recieved'>Recieve A Referral</option>
+							</select>
 							<input
-								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"'
-								type="text"
-								name="clientsName"
+								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+								type='text'
+								name='clientsName'
 								value={values.clientsName}
 								onChange={handleChange}
-								placeholder="Enter Clients Name"
+								placeholder='Enter Clients Name'
 							/>
-							<input
-								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"'
-								type="text"
-								name="typeOfTransaction"
+							<select
+								name='typeOfTransaction'
+								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
 								value={values.typeOfTransaction}
 								onChange={handleChange}
-								placeholder="Enter Transaction Type (Buyer, Seller or Renter)"
-							/>
+							>
+								<option>Choose type of Transaction</option>
+								<option value='buyer'>Buyer</option>
+								<option value='seller'>Seller</option>
+								<option value='renter'>Renter</option>
+							</select>
 							<input
-								className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-								type="number"
-								name="clientsPhoneNumber"
+								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+								type='number'
+								name='clientsPhoneNumber'
 								value={values.clientsPhoneNumber}
 								onChange={handleChange}
-								placeholder="Enter Clients Phone Number"
+								placeholder='Enter Clients Phone Number'
 							/>
 							<input
-								className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-								type="email"
-								name="clientsEmail"
+								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+								type='email'
+								name='clientsEmail'
 								value={values.clientsEmail}
 								onChange={handleChange}
-								placeholder="Enter Clients Email"
+								placeholder='Enter Clients Email'
 							/>
 							{/* Financing questions */}
-							<div className="flex flex-col items-center w-full">
+							<div className='flex flex-col items-center w-full'>
 								<h3>Do they have a lender?</h3>
 								<div>
 									<input
-										type="radio"
-										id="true"
-										name="lenderYes"
+										type='radio'
+										id='true'
+										name='lenderYes'
 										value={true}
 										onClick={() => setLenderQuestionsBoolean(true)}
 									/>
 									<label>Yes</label>
 									<input
-										type="radio"
-										id="false"
-										name="lenderNo"
+										type='radio'
+										id='false'
+										name='lenderNo'
 										value={false}
 										onClick={() => setLenderQuestionsBoolean(false)}
 									/>
@@ -157,21 +170,21 @@ function InputForm() {
 								/>
 							) : null}
 							{/* Client details questions */}
-							<div className="flex flex-col items-center w-full">
+							<div className='flex flex-col items-center w-full'>
 								<h3>Do you know the house they want?</h3>
 								<div>
 									<input
-										type="radio"
-										id="true"
-										name="clientYes"
+										type='radio'
+										id='true'
+										name='clientYes'
 										value={true}
 										onClick={() => setClientDetailsBoolean(true)}
 									/>
 									<label>Yes</label>
 									<input
-										type="radio"
-										id="false"
-										name="clientNo"
+										type='radio'
+										id='false'
+										name='clientNo'
 										value={false}
 										onClick={() => setClientDetailsBoolean(false)}
 									/>
@@ -188,21 +201,21 @@ function InputForm() {
 							) : null}
 							{!params.id ? (
 								<textarea
-									className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-									cols="30"
-									rows="10 "
+									className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+									cols='30'
+									rows='10 '
 									value={
 										values?.agentNotes ? values.agentNotes[0].note : values.note
 									}
 									name={values?.agentNotes ? "agentNotes[0].note" : "note"}
 									onChange={handleChange}
-									placeholder="Enter any aditional notes"
+									placeholder='Enter any aditional notes'
 								></textarea>
 							) : null}
 
 							<button
-								type="submit"
-								className="inline-block px-5 py-3 ml-3 text-sm font-medium text-white bg-blue-500 rounded-lg"
+								type='submit'
+								className='inline-block px-5 py-3 ml-3 text-sm font-medium text-white bg-blue-500 rounded-lg'
 							>
 								Submit
 							</button>
