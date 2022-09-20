@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'https://referral-io.adaptable.app/'
+const url = 'https://refxerral-io.adaptable.app/'
 
 // get all Referrals
 export const getAllReferralsRequest = async (token) => {
