@@ -7,8 +7,7 @@ export const getAllReferralsRequest = async (token) => {
   try {
        return await axios.get(url + 'api/getreferrals',
        { headers: {
-        "Authorization" : `Bearer ${token}`, 
-        'Content-Type': 'text/plain'
+        "Authorization" : `Bearer ${token}`
       }})
   } catch (error) {
     return error
