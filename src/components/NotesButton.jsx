@@ -23,9 +23,9 @@ function NotesButton() {
 				<div key={data._id}>
 					{data.agentNotes.map((notes) => {
 						return (
-							<div key={notes.note} className="border flex justify-between">
-								<div className="ml-2">
-									<p className="text-xs">{notes.dateAdded}</p>
+							<div key={notes.note} className='border flex justify-between'>
+								<div className='ml-2'>
+									<p className='text-xs'>{notes.dateAdded}</p>
 									<p>{notes.note}</p>
 								</div>
 								<div>
@@ -33,6 +33,7 @@ function NotesButton() {
 										onClick={() => {
 											deleteNote(notes._id, params);
 											toast("Note has been deleted");
+											// window.location.reload(false);
 										}}
 										className="inline-block border border-black-600 hover:bg-blue-600 hover:text-white active:bg-blue-500 focus:outline-none focus:ring className='inline-block mr-2 px-2 py-1 text-xs font-medium text-white bg-blue-500 rounded-lg"
 									>
@@ -49,7 +50,7 @@ function NotesButton() {
 	return (
 		<div>
 			<button onClick={() => navigate("/client-information/" + params.id)}>
-				<TiChevronLeft className="text-5xl text-blue-500 mt-2 ml-2 mb-3" />
+				<TiChevronLeft className='text-5xl text-blue-500 mt-2 ml-2 mb-3' />
 			</button>
 			{referralClientCheck?.referralType === "recieved" ? (
 				<Formik
@@ -67,16 +68,16 @@ function NotesButton() {
 					{({ values, handleChange, handleSubmit }) => (
 						<form onSubmit={handleSubmit}>
 							<textarea
-								className="border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
-								cols="30"
-								rows="10 "
+								className='border my-3 w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm'
+								cols='30'
+								rows='10 '
 								value={values.note}
-								name="note"
+								name='note'
 								onChange={handleChange}
-								placeholder="Enter any aditional notes"
+								placeholder='Enter any aditional notes'
 							></textarea>
 							<button
-								type="submit"
+								type='submit'
 								className="inline-block  border border-black-600 hover:bg-blue-600 hover:text-white active:bg-blue-500 focus:outline-none focus:ring className='inline-block px-5 py-3  text-sm font-medium text-white bg-blue-500 rounded-lg"
 							>
 								Add Note
