@@ -152,6 +152,7 @@ function ReferalProvider({ children }) {
 	const logOut = () => {
 		localStorage.removeItem("user");
 		navigate("/auth");
+		window.location.reload(false);
 	};
 
 	const logIn = async (email, passowrd) => {
