@@ -5,7 +5,11 @@ const url = 'https://refxerral-io.adaptable.app/'
 // get all Referrals
 export const getAllReferralsRequest = async (token) => {
   try {
-       return await axios.get(url + 'api/getreferrals',{ headers: {"Authorization" : `Bearer ${token}`}})
+       return await axios.get(url + 'api/getreferrals',
+       { headers: {
+        "Authorization" : `Bearer ${token}`, 
+        'Content-Type': 'text/plain'
+      }})
   } catch (error) {
     return error
   } 
