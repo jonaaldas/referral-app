@@ -37,7 +37,6 @@ export const editReferralRequest = async (token, client, referralId) =>{
   } catch (error) {
     return error
   }
-
 }
 
 // delete referral 
